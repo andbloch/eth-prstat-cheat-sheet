@@ -1,0 +1,33 @@
+
+% package for conditional actions
+\usepackage{xifthen}
+
+% color definitions
+\definecolor{defcolor}{rgb}{0.75, 1, 0.75}
+\definecolor{thmcolor}{rgb}{1, 0.75, 0.75}
+\definecolor{excolor}{rgb}{1, 0.95, 0.43}
+%\definecolor{importantcolor}{rgb}{0.7, 0.95, 1} % light blue
+\definecolor{importantcolor}{rgb}{1, 0.55, 0}
+\definecolor{titlecolor}{rgb}{0, 0, 0}
+
+% conditional checks
+\newcommand{\emptyarg}[1][]{\ifthenelse{\isempty{#1}}{}{\ (#1)}}
+
+% custom commands with optional argument
+\newcommand{\Def}[1][]{\colorbox{defcolor}{\color{titlecolor}{\textbf{Def.\emptyarg[#1]}}}\kern+0.3ex}
+\newcommand{\Thm}[1][]{\colorbox{thmcolor}{\color{titlecolor}{\textbf{Thm.\emptyarg[#1]}}}\kern+0.3ex}
+\newcommand{\Lem}[1][]{\colorbox{thmcolor}{\color{titlecolor}{\textbf{Lem.\emptyarg[#1]}}}\kern+0.3ex}
+\newcommand{\Cor}[1][]{\colorbox{thmcolor}{\color{titlecolor}{\textbf{Cor.\emptyarg[#1]}}}\kern+0.3ex}
+\newcommand{\Ex}[1][]{\colorbox{excolor}{\color{titlecolor}{\textbf{Ex.\emptyarg[#1]}}}\kern+0.3ex}
+
+% custom commands with no argument
+\newcommand{\Com}{\textbf{Com.} }
+\newcommand{\Important}{\textbf{Wichtig:} }
+\newcommand{\Attention}{\textbf{Achtung:} }
+\newcommand{\Proof}{\textbf{Bew.} }
+\newcommand{\Intuition}{\textbf{Intuition:} }
+\newcommand{\Trick}{\textbf{Trick:} }
+
+% custom proof commands
+\newcommand{\qed}{\hfill$\square$}
+\newcommand{\contradiction}{\hfill$\lightning$}

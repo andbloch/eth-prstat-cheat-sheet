@@ -1,0 +1,2405 @@
+\documentclass[a4paper, 12pt]{extarticle}
+
+% paper layout
+\usepackage[margin=0.25cm]{geometry}
+
+% multicolumn layout
+\usepackage{multicol}
+\setlength\columnsep{20pt}
+\setlength{\columnseprule}{0.1pt} 
+
+% landscape
+\usepackage{pdflscape}
+
+% paragraph layout
+\setlength\parindent{0pt}
+
+% language settings
+\usepackage[ngerman]{babel} % Silbentrennung
+\usepackage[utf8]{inputenc} % Umlaute
+
+\usepackage{titlesec}
+%\titleformat*{\section}{\large\bfseries}
+%\titleformat*{\subsection}{\large\bfseries}
+\titlespacing*{\section}
+{5pt}{0ex plus 0ex minus 0ex}{0ex plus 0ex}
+\titlespacing*{\subsection}
+{5pt}{0ex plus 0ex minus 0ex}{0ex plus 0ex}
+
+% font settings
+%\usepackage{mathpazo}
+%\usepackage{helvet}
+%\usepackage{millennial}
+% \usepackage{fouriernc}
+%\usepackage[varg]{txfonts}
+%\usepackage{mathptmx}
+%\usepackage[charter]{mathdesign}
+%\usepackage[garamond]{mathdesign}
+%\usepackage[utopia]{mathdesign}
+%\usepackage{fourier}
+
+% font kerning (load after specific font!)
+\usepackage{microtype}
+
+% custom font sizes
+\usepackage{relsize}
+
+% underlining with line breaks (umlaut support)
+\usepackage{ulem}
+
+% graphics settings
+\usepackage{pict2e} % load this before picture
+\usepackage{picture}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% graphics drawings
+\usepackage{tikz}
+\usetikzlibrary{calc,matrix,trees}
+
+% Set the overall layout of the tree
+\tikzstyle{level 1}=[level distance=2cm, sibling distance=2cm]
+\tikzstyle{level 2}=[level distance=2cm, sibling distance=1cm]
+
+% Define styles for bags and leafs
+\tikzstyle{bag} = [text width=4em, text centered]
+\tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
+
+% float settings
+\usepackage{float}
+
+% referencing
+\usepackage{hyperref}
+
+% math packages and settings
+\usepackage[intlimits]{mathtools}
+\usepackage{amssymb}
+\usepackage{resizegather} % resizing equations
+\usepackage{oubraces}    % special overlapping over/underbraces
+\usepackage{cancel}
+\allowdisplaybreaks % allow page break in align* environment
+
+% tables
+\usepackage{booktabs} % nicer tables
+\usepackage{array} % custom column types
+
+% lists
+\usepackage{enumitem}
+\setlist{noitemsep,topsep=3pt,parsep=3pt,partopsep=3pt,leftmargin=15pt}
+
+% list items
+\renewcommand\labelitemi{{\boldmath$\cdot$}}
+\newcommand{\listarrow}{
+\smash{\scalebox{1.5}[1.75]{\rotatebox[origin=c]{180}{$\Lsh$}}}
+}
+
+% comments (invisible)
+\usepackage{comment}
+
+% comments (visible comment)
+\newcommand{\txtcom}[1]{\textcolor{gray}{\{ #1 \}}}
+
+% separator
+\newcommand{\sep}{\vspace{5pt}\noindent\hrule\vspace{5pt}}
+
+% color packages
+\usepackage{color}
+\usepackage{xcolor}
+
+% ASYMPTOTIC NOTATIONS
+\newcommand{\BigO}{\mathcal{O}}
+
+% NUMBER SYSTEMS
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+% CALLICGRAPHIC SHORTCUTS
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+% SETS
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\dset}[2]{\left\{ #1 \ \middle| \ #2 \right\}}
+
+% BRACES
+\newcommand{\alg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\card}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\length}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\scprod}[1]{\left\langle #1 \right\rangle}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\linsys}[2]{\left[\ #1 \ | \ #2 \ \right]}
+
+% BRACES SMALL
+\newcommand{\snorm}[1]{\lVert #1 \rVert}
+\newcommand{\sscprod}[1]{\langle #1 \rangle}
+\newcommand{\slinsys}[2]{[\ #1 \ | \ #2 \ ]}
+
+% DISJOINT UNION
+\makeatletter
+\def\moverlay{\mathpalette\mov@rlay}
+\def\mov@rlay#1#2{\leavevmode\vtop{%
+   \baselineskip\z@skip \lineskiplimit-\maxdimen
+   \ialign{\hfil$\m@th#1##$\hfil\cr#2\crcr}}}
+\newcommand{\charfusion}[3][\mathord]{
+    #1{\ifx#1\mathop\vphantom{#2}\fi
+        \mathpalette\mov@rlay{#2\cr#3}
+      }
+    \ifx#1\mathop\expandafter\displaylimits\fi}
+\makeatother
+\newcommand{\bigcupdot}{\charfusion[\mathop]{\bigcup}{\cdot}}
+\newcommand{\cupdot}{\mathbin{\mathaccent\cdot\cup}}
+
+% CUSTOM STATISTICS
+\newcommand{\Prob}[2][]{\operatorname{P}_{#1}\left[ #2 \right]}
+\newcommand{\cProb}[2]{\operatorname{P}\left[ #1 \,\middle|\, #2 \right]}
+\newcommand{\Var}[2][]{\operatorname{Var}_{#1}\left[ #2 \right]}
+\newcommand{\sd}[1]{\operatorname{sd}\left( #1 \right)}
+\newcommand{\Exp}[2][]{\operatorname{E}_{#1}\left[ #2 \right]}
+\newcommand{\Corr}[1]{\operatorname{Corr}\left[ #1 \right]}
+\newcommand{\Cov}[1]{\operatorname{Cov}\left(#1 \right)}
+\newcommand{\MSE}[2][]{\operatorname{MSE}_{#1}\left[ #2 \right]}
+\newcommand{\riid}{\stackrel{\text{\tiny i.i.d.}}{\sim}}
+\newcommand{\approxsim}{\stackrel{\text{\tiny approx.}}{\sim}}
+
+% ACCENTS
+\newcommand*{\Hm}{\mathsf{H}}
+\newcommand*{\T}{\mathsf{T}}
+\newcommand*{\Rev}{\mathsf{R}}
+
+% CUSTOM ALPHABETS
+\renewcommand{\S}{\Sigma}
+\newcommand{\Ss}{\Sigma^*}
+\newcommand{\Sp}{\Sigma^+}
+\newcommand{\Sbool}{\Sigma_{\text{bool}}}
+\newcommand{\Ssbool}{(\Sigma_{\text{bool}})^*}
+\newcommand{\Slogic}{\Sigma_{\text{logic}}}
+\newcommand{\Sslogic}{(\Sigma_{\text{logic}})^*}
+\newcommand{\Slat}{\Sigma_{\text{lat}}}
+\newcommand{\Sslat}{(\Sigma_{\text{lat}})^*}
+\newcommand{\Stastatur}{\Sigma_{\text{Tastatur}}}
+\newcommand{\Sstastatur}{(\Sigma_{\text{Tastatur}})^*}
+\newcommand{\Sm}{\Sigma_{m}}
+\newcommand{\Ssm}{\Sigma_{m}^*}
+\newcommand{\ZO}{\{0,1\}}
+\newcommand{\ZOs}{\{0,1\}^*}
+\newcommand{\hdelta}{\hat\delta}
+
+% OPERATORS
+\DeclareMathOperator{\id}{\text{id}}
+\DeclareMathOperator{\Kon}{\text{Kon}}
+\DeclareMathOperator{\cost}{\text{cost}}
+\DeclareMathOperator{\goal}{\text{goal}}
+\DeclareMathOperator{\Opt}{\text{Opt}}
+\DeclareMathOperator{\Bin}{\text{Bin}}
+\DeclareMathOperator{\Nummer}{\text{Nummer}}
+\DeclareMathOperator{\Prim}{\text{Prim}}
+\DeclareMathOperator{\Kl}{\text{Kl}}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\glb}{glb}
+\DeclareMathOperator{\lub}{lub}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Trace}{Trace}
+\DeclareMathOperator{\Spur}{Spur}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arctanh}{arctanh}
+% \DeclareMathOperator{\arc}{arc} % TODO: is now a circle of some other package
+\renewcommand\div{\operatorname{div}}
+\DeclareMathOperator{\rot}{rot}
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\Hess}{Hess}
+\newcommand{\laplace}{\Delta}
+
+% OPERATORS (OVERRIDDEN)
+\renewcommand\Re{\operatorname{Re}}
+\renewcommand\Im{\operatorname{Im}}
+
+% RELATIONS
+\newcommand{\mbeq}{\stackrel{!}{=}}
+\newcommand{\relid}{\mathrel{\id}}
+\newcommand{\relrho}{\mathrel{\rho}}
+\newcommand{\relsigma}{\mathrel{\sigma}}
+\newcommand{\reltheta}{\mathrel{\theta}}
+\newcommand{\relsim}{\mathrel{\sim}}
+\newcommand{\relf}{\mathrel{f}}
+
+% RELATIONS (INVERSES)
+\newcommand{\invrelid}{\mathrel{\widehat{\id}}}
+\newcommand{\invrelrho}{\mathrel{\widehat{\rho}}}
+\newcommand{\invrelsigma}{\mathrel{\widehat{\sigma}}}
+\newcommand{\invreltheta}{\mathrel{\widehat{\theta}}}
+\newcommand{\invrelsim}{\mathrel{\widehat{\sim}}}
+\newcommand{\invrelf}{\mathrel{\widehat{f}}}
+
+% CUSTOM RELATIONS
+\DeclareRobustCommand{\step}[2][]{\mathrel{\drawstep{#1}{#2}}}
+\newcommand{\drawstep}[2]{%
+  \vcenter{\hbox{%
+    \setlength{\unitlength}{1em}%
+    \begin{picture}(1,1)
+    \roundcap
+    \put(0,0){\line(0,1){1}}
+    \put(0,0.5){\line(1,0){0.95}}
+    \put(0.5,0){\makebox[0pt]{\text{\smaller$\scriptscriptstyle#2$}}}
+    \put(0.5,0.6){\makebox[0pt]{\text{\smaller$#1$}}}
+    \end{picture}%
+  }}%
+}
+
+% GLOBAL MATRICES AND VECTOR SETTINGS
+\newcommand{\mat}[1]{\mathbf{#1}}
+%\renewcommand{\vec}[1]{\mathbf{#1}}
+
+% VECTORS
+\newcommand{\va}{\vec{a}}
+\newcommand{\vb}{\vec{b}}
+\newcommand{\vc}{\vec{c}}
+\newcommand{\vd}{\vec{d}}
+\newcommand{\ve}{\vec{e}}
+\newcommand{\vf}{\vec{f}}
+\newcommand{\vg}{\vec{g}}
+\newcommand{\vh}{\vec{h}}
+\newcommand{\vi}{\vec{i}}
+\newcommand{\vj}{\vec{j}}
+\newcommand{\vk}{\vec{k}}
+\newcommand{\vl}{\vec{l}}
+\newcommand{\vm}{\vec{m}}
+\newcommand{\vn}{\vec{n}}
+\newcommand{\vo}{\vec{o}}
+\newcommand{\vp}{\vec{p}}
+\newcommand{\vq}{\vec{q}}
+\newcommand{\vr}{\vec{r}}
+\newcommand{\vs}{\vec{s}}
+\newcommand{\vt}{\vec{t}}
+\newcommand{\vu}{\vec{u}}
+\newcommand{\vv}{\vec{v}}
+\newcommand{\vw}{\vec{w}}
+\newcommand{\vx}{\vec{x}}
+\newcommand{\vy}{\vec{y}}
+\newcommand{\vz}{\vec{z}}
+
+% MATRICES (LATIN)
+\newcommand{\MA}{\mat{A}}
+\newcommand{\MB}{\mat{B}}
+\newcommand{\MC}{\mat{C}}
+\newcommand{\MD}{\mat{D}}
+\newcommand{\ME}{\mat{E}}
+\newcommand{\MF}{\mat{F}}
+\newcommand{\MG}{\mat{G}}
+\newcommand{\MH}{\mat{H}}
+\newcommand{\MI}{\mat{I}}
+\newcommand{\MJ}{\mat{J}}
+\newcommand{\MK}{\mat{K}}
+\newcommand{\ML}{\mat{L}}
+\newcommand{\MM}{\mat{M}}
+\newcommand{\MN}{\mat{N}}
+\newcommand{\MO}{\mat{0}}
+\newcommand{\MP}{\mat{P}}
+\newcommand{\MQ}{\mat{Q}}
+\newcommand{\MR}{\mat{R}}
+\newcommand{\MS}{\mat{S}}
+\newcommand{\MT}{\mat{T}}
+\newcommand{\MU}{\mat{U}}
+\newcommand{\MV}{\mat{V}}
+\newcommand{\MW}{\mat{W}}
+\newcommand{\MX}{\mat{X}}
+\newcommand{\MY}{\mat{Y}}
+\newcommand{\MZ}{\mat{Z}}
+
+% MATRICES (GREEK)
+\newcommand{\MSigma}{\mat{\Sigma}}
+\newcommand{\MLambda}{\mat{\Lambda}}
+
+% HIGHLIGHTING IN EQUATIONS
+\newcommand{\hl}[1]{\colorbox{black!7}{$#1$}}
+
+% programming codes
+% TODO: use better programming package: pygments
+\usepackage{listings}
+\usepackage{courier}
+\definecolor{light-gray}{gray}{0.9}
+\lstset{
+ %rulecolor=\color{black},
+ %frame=single, % adds a frame around the code
+ basicstyle        = \footnotesize\ttfamily,
+ framextopmargin   = 50pt
+ breaklines        = true,
+ breakatwhitespace = true,
+ %backgroundcolor=\color{light-gray},
+ breakindent       = 2ex,
+ escapechar       = *,   % custom escape char
+ %numbers          = left
+ tabsize           = 2,
+ %literate={\ \ }{{\ }}1
+ mathescape        = true   % escape math with '$'
+}
+
+% todos
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{TODO:} #1}}
+
+% TODO: warmup environment (short/long version of document)
+% TODO: algorithm package (abstract)
+% TODO: graph packages (tikz)
+% TODO: minted codes (and language-specific)
+% TODO: gnuplot, pgfplots examples
+% TODO: displayskip, parskip (what is this?)
+% TODO: ultra shortening option for document
+
+% CUSTOM ARGUMENTS
+\newcommand{\argdot}{\,\cdot\,}
+
+% custom commands
+\include{custom-commands}
+
+% codes
+\lstnewenvironment{Code}[1][]{}{}        % boxed
+\newcommand{\code}[1]{\lstinline{#1}}    % inline
+
+
+
+% title
+\title{Wahrscheinlichkeit und Statistik}
+\author{Zusammenfassung}
+\date{}
+
+\begin{document}
+
+
+% define hidden column type for tables
+\newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}}
+
+
+\begin{multicols*}{2}
+\raggedcolumns
+
+\section{Allgemeine Zufallsvariablen}
+
+\sep
+
+\Def[Verteilungsfunktion]
+\[
+t\mapsto F_X(t):=\Prob{X\leq t}:=\Prob{\dset{\omega\in\Omega}{X(\omega)\leq t}}.
+\]
+
+\sep
+
+Jede Verteilungsfunktion $F_X$ hat die folgenden \emph{Eigenschaften}:
+\begin{enumerate}[label=\arabic*)]
+  \item $F_X$ ist i) \emph{wachsend}, d.h., es gilt $F_X(s)\leq F_X(t)$ für
+  $s\leq t$, und ii) \emph{rechtsstetig}, d.h., es gilt $F_X(u)\to F_X(t)$ für
+    $u\to t$ mit $u>t$.
+  \item $\displaystyle \lim_{t\to - \infty}F_X(t)=0$, und
+  $\displaystyle \lim_{t\to + \infty}F_X(t)=1$.
+\end{enumerate}
+Umgekehrt kann man zeigen, dass jede Funktion $F$ mit den Eigenschaften 1) und
+2) die Verteilungsfunktion $F_X$ einer Zufallsvariablen $X$ ist.
+
+\sep
+
+Kennt man die Verteilung kennt man die Verteilungsfunkt. und umgekehrt
+$\mu_X(B):=\Prob{X\in B}$ und $F_X(t)=\mu_X\left(\left(-\infty,
+t\right]\right)$.
+
+\sep
+
+\Def[gemeinsame Verteilungsfunktion] 
+
+ZV $X_1,\ldots,X_n$, Abb. $F\colon\R^n\to[0,1]$,
+\begin{gather*}
+(x_1,\ldots,x_n)\mapsto F(x_1,\ldots,x_n):=\Prob{X_1\leq x_1, \ldots, X_n\leq
+x_n}.
+\end{gather*}
+\[
+F(x_1,\ldots,x_n)=\int_{-\infty}^{x_1}\cdots\int_{-\infty}^{x_n}
+f(t_1,\ldots,t_n) \ dt_n \ldots dt_1
+\]
+
+\sep
+
+Falls $X_1,\ldots,X_n$ eine gemeinsame Dichte $f$ haben, so gilt analog zum
+diskreten Fall
+\begin{enumerate}[label=\roman*)]
+  \item $f(x_1,\ldots,x_n)\geq 0$, und $=0$ ausserh. v.
+  $\cW(\ldots)$.
+  \item $\int_{-\infty}^\infty\cdots\int_{-\infty}^{\infty} f(x_1,\ldots,x_n) \
+  dx_n \ldots dx_1=1.$
+  \item $\Prob{(X_1,\ldots,X_n)\in
+  A}=\substack{\int\cdots\int}_{(x_1,\ldots,x_n)\in A}f(x_1,\ldots,x_n) \
+  dx_n\ldots dx_1$ für $A\subseteq \R^n$.
+\end{enumerate}
+
+\sep
+
+\Def[Verteilungsfkt. der Randverteilung von $X$] 
+
+ZV $X$, $Y$, $F_X\colon\R\to[0,1]$
+\begin{gather*}
+x\mapsto F_X(x):=\Prob{X\leq x}=\Prob{X\leq x, Y<\infty}=\lim_{y\to\infty}
+F(x,y)
+\end{gather*}
+\Com $F_Y\colon\R\to[0,1]$ analog.
+
+\sep
+
+\Def[Dichtefunktion einer Randverteilung] 
+
+ZV $X,Y$ mit gemeinsamer Dichte $f(x,y)$\\
+Randverteilung von $X$ ist $f_X\colon\R\to[0,\infty)$
+\[
+f_X(x)=\int_{-\infty}^\infty f(x,y) \ dy	
+\]
+\Com $f_Y(y)$ analog.
+
+\sep
+
+\Def[Unabhängigkeit] Die ZV $X_1,\ldots,X_n$ heissen
+\emph{unabhängig}, falls gilt
+\[
+F(x_1,\ldots,x_n)=F_{X_1}(x_1)\cdots F_{X_n}(x_n), \text{ bzw.}
+\]
+\[
+f(x_1,\ldots,x_n) = f_{X_1}(x_1)\cdots f_{X_n}(x_n)\quad \text{für alle
+}x_1,\ldots,x_n,
+\]
+
+\sep
+
+\Def[Faltung von stetigen Zufallsvariablen] 
+
+Sind $X$ und $Y$ zusätzlich unabhängig, so ist $f(x,y)=f_X(x)f_Y(y)$ und damit
+\[
+f_Z(z)=\int_{-\infty}^{\infty} f_X(x)f_Y(z-x) \ dx
+=\int_{-\infty}^{\infty} f_X(z-y)f_Y(y) \ dy
+\]
+d.h. $f_Z=(f_X * f_Y)(z)$ ist die \emph{Faltung} $f_X$
+und $f_Y$.
+
+\sep
+
+\Def[Bedingte Gewichtsfkt. und Vert.] 
+
+ZV $X,Y$, gegeben
+\begin{gather*}
+p_{X|Y}(x\,|\,y):=\cProb{X=x}{Y=y}
+=\frac{\Prob{X=x,Y=y}}{\Prob{Y=y}}
+=\frac{p(x,y)}{p_Y(y)}
+\end{gather*}
+für $p_Y(y)>0$ und $0$ sonst. Das legt dann auch die bedingte Verteilung von $X$
+gegeben $Y=y$ fest.
+
+\sep
+
+\Lem[Affine Transformation von ZV]
+
+Sei $g(x)=ax+b$ mit $a>0$, $b\in\R$ und $Y=g(X) = aX+b$. Es folgt
+\begin{align*}
+F_Y(t)&=\Prob{Y\leq t} = \Prob{aX+b\leq t}
+\\ 
+&= \Prob{X\leq \frac{t-b}{a}}=F_X\left(\frac{t-b}{a}\right)
+\end{align*}
+und damit nach der Kettenregel
+\[
+f_Y(t) = \frac{d}{dt}F_Y(t) = \frac{1}{a} f_X\left(\frac{t-b}{a}\right).
+\]
+Analog bis auf ein Vorzeichen geht das auch mit $a<0$.
+
+\sep
+
+\Ex[Affine Transform. von normalvert. ZV]
+
+Ist $X\sim\cN(\mu,\sigma^2)$ und $Y=aX+b$, $a>0$, $b\in\R$, so ist
+$Y\sim\cN(b+a\mu,a^2\sigma^2)$. (Bew: obige Formel.)
+
+\sep
+
+\Ex[Nichtlineare Transformation 1] 
+
+Für $g(x)=x^2$ ist $Y=X^2$ und
+\begin{gather*}
+\begin{align*}
+F_Y(t) &= \Prob{Y\leq t} = \Prob{X^2\leq t}
+=\Prob{-\sqrt{t}\leq X\leq \sqrt{t}}
+\\
+&= \Prob{X\leq\sqrt{t}} - \Prob{X\leq-\sqrt{t}}
+=F_X(\sqrt{t}) - F_X(-\sqrt{t}),
+\end{align*}
+\end{gather*}
+falls $X$ stetig ist. Mit d. Kettenregel erhält man $f_Y(t)$.
+
+\sep
+
+\Ex[Nichtlineare Transformation 2] 
+
+Für $g(x)=\frac{1}{x}$ ist $Y=\frac{1}{X}$ und
+\begin{align*}
+F_Y(t) &= \Prob{Y\leq t} = \Prob{\frac{1}{X}\leq t} \stackrel{(*)}{=}
+\Prob{X\geq\frac{1}{t}}
+\\
+&= 1 - \Prob{X\leq \frac{1}{t}} = 1-F_X\left(\frac{1}{t}\right),
+\end{align*}
+falls $X$ stetig ist. $f_Y(t)$ $\to$ Ableiten und Kettenregel.
+
+(*): Keine Mult. Einfach Bruch umkehren.
+
+\sep
+
+\Thm[Vert. mit Umkehrfkt. und $X\sim\cU(0,1)$] 
+
+Sei $F$ eine stetige und streng monoton wachsende Verteilungsfunktion, mit
+Umkehrfunktion $F^{-1}$. Ist $X\sim\cU(0,1)$ und $Y=F^{-1}(X)$, so hat $Y$
+gerade die Verteilungsfunktion $F$.
+
+\sep
+
+\Ex[Simulation der Exponentialverteilung]
+
+Um eine Exponentialverteilung mit Parameter $\lambda$ zu simulieren, nehmen wir
+die zugehörige Verteilungsfunktion $F(t)=1-e^{-\lambda t}$ für $t\geq 0$. Ihre
+Inverse $F^{-1}$ erhalten wir via
+\[
+y=F(t)=1-e^{-\lambda t}= 1-e^{-\lambda F^{-1}(y)}
+\]
+als
+\[
+F^{-1}(y)=t=-\frac{\ln(1-y)}{\lambda}.
+\]
+Mit $X\sim\cU(0,1)$ ist also
+\[
+Y:=F^{-1}(X) = -\frac{\ln(1-X)}{\lambda} \sim Exp(\lambda).
+\]
+
+\sep
+
+\section{Ungleichungen und\\ Grenzwertsätze}
+
+\sep
+
+\subsection{Ungleichungen}
+
+\sep
+
+\Thm[Markov Ungleichung] Sei $X$ eine Zufallsvariable und ferner
+$g\colon\cW(X)\to[0,\infty)$ eine wachsende Funktion. Für jedes $c\in\R$ mit
+$g(c)>0$ gilt dann
+\[
+\Prob{X\geq c} \leq \frac{\Exp{g(X)}}{g(c)}.
+\]
+
+\sep
+
+\Cor[Chebyshev-Ungleichung] Sei $Y$ eine Zufallsvariable mit endlicher Varianz.
+Für jedes $b>0$ gilt dann
+\[
+\Prob{\abs{Y-\Exp{Y}}\geq b} \leq \frac{\Var{Y}}{b^2},
+\]
+bzw.
+\[
+\Prob{\abs{Y-\Exp{Y}}\leq b} \geq 1- \frac{\Var{Y}}{b^2}.
+\]
+
+\sep
+
+Die obigen Ungleichungen illustrieren die Bedeutung der Varianz als
+Streunungsmass: Je kleiner die Varianz, desto eher (mit desto grösserer
+Wahrscheinlichkeit) liegen die Werte von $X$ nahe beim Erwartungswert $\Exp{X}$.
+
+\sep
+
+\subsection{Das Gesetz der grossen Zahlen\\ \small(Asymptotik von
+Zufallsvariablen)}
+
+\sep
+
+\Thm[schwaches Gesetz der grossen Zahlen] Sei $X_1,X_2,\ldots$ eine Folge von
+unabhängigen (es genügt schon: paarweise unkorreliert) Zufallsvariablen, die
+alle den gleichen Erwartungswert $\Exp{X_i}=\mu$ und die gleiche Varianz
+$\Var{X_i}=\sigma^2$ haben. Sei
+$\overline{X}_n=\frac{1}{n}S_n=\frac{1}{n}\sum_{i=1}^n X_i$. Dann konvergiert
+$\overline{X}_n$ für $n\to\infty$ in Wahrscheinlichkeit/stochastisch gegen
+$\mu=\Exp{X_i}$, d.h.
+\[
+\Prob{\abs{\overline{X}_i-\mu}>\epsilon}
+\xrightarrow{n \to \infty} 0
+ \qquad \text{für jedes }\epsilon >0.
+\]
+Anschaulich bedeutet die obige Aussage, dass mit beliebig grosser
+Wahrscheinlichkeit $1-\delta$ der Wert von $\overline{X}_n$ für hinreichend
+grosse $n$ beliebige nahe (bis auf $\epsilon$) bei $\mu$ liegt.
+
+\sep
+
+\Thm[starkes Gesetz der grossen Zahlen] Sei $X_1,X_2,\ldots$ eine Folge von
+unabhängigen Zufallsvariablen, die alle dieselbe Verteilung haben, und ihr
+Erwartungswert $\mu = \Exp{X_i}$ sei endlich. Für
+$\overline{X}_n=\frac{1}{n}S_n=\frac{1}{n}\sum_{i=1}^n X_i$ gilt dann
+\[
+\overline{X}_n \xrightarrow{n \to \infty} \mu
+\quad
+P\text{-fastsicher }(P\text{-f.s.}),
+\]
+d.h.
+\[
+\Prob{\dset{\omega\in\Omega}{\overline{X}_n(\omega)
+\xrightarrow{n \to \infty}\mu}}=1.
+\]
+
+\sep
+
+\subsection{Der Zentrale Grenzwertsatz\\ \small(Asymptotik von Verteilungen)}
+
+\sep
+
+\Thm[Zentraler Grenzwertsatz, ZGS] 
+
+Sei $X_1,X_2,\ldots$ eine Folge von i.i.d. Zufallsvariablen mit $\Exp{X_i}=\mu$
+und $\Var{X_i}=\sigma^2$. Für die Summe $S_n=\sum_{i=1}^n X_i$ gilt dann
+\[
+\lim_{n\to\infty}\Prob{\frac{S_n-n\mu}{\sigma\sqrt{n}}\leq x}=\Phi(x)
+\quad
+\text{für alle }x\in\R,
+\]
+wobei $\Phi$ die Verteilungsfunktion der $\cN(0,1)$-Verteilung ist.
+
+\sep
+
+\Com Wie im Beweis des schwachen GGZ kann man nachrechnen, dass $S_n$
+Erwartungswert $\Exp{S_n}=n\mu$ und Varianz $\Var{S_n}=n\sigma^2$ hat. Also hat
+die Grösse
+\[
+S^*_n = \frac{S_n-n\mu}{\sigma\sqrt{n}} = \frac{S_n-\Exp{X}}{\sqrt{\Var{S_n}}}
+\]
+Erwartungswert $0$ und Varianz $1$; sie heisst deshalb auch die
+\emph{Standardisierung} von $S_n$.
+
+\sep
+
+\Ex[Normalapprox. von Summen von ZV:] Für
+\emph{praktische Anwendungen} schreibt man die Aussage des ZGS meistens in der Form
+\[
+\Prob{S^*_n\leq x} \approx \Phi(x) 
+\ \ \ \text{oder} \ \ \
+S^*_n\approxsim \cN(0,1)
+\ \ \ \text{für }n\text{ gross}
+\]
+wobei das Symbol $\approxsim$ für ``ist approximativ
+verteilt gemäss'' steht. Für $S_n$ oder $\overline{X}_n=\frac{1}{n}S_n$
+zurückübersetzt heisst das dann
+\[
+S_n \approxsim \cN(n\mu,n\sigma^2)
+\quad\text{bzw.}\quad
+\overline{X}_n \approxsim \cN(\mu,\frac{1}{n}\sigma^2),
+\]
+und das wird benutzt, um Wahrscheinlichkeiten für diese Grössen (d.h. für $S_n$
+bzw. $\overline{X}_n$) approximativ als Wahrscheinlichkeiten für eine
+entsprechende Normalverteilung zu berechnen.
+
+\sep
+
+\Ex[Normalapprox. für die Binomialvert.] Ist $n$ gross, so wird
+es schwierig die Binomialkoeffizienten bei der Dichte/Verteilungsfunktion der
+Binomialverteilung zu berechnen. Deshalb fasst man die Binomialverteilung
+(sofern es möglich ist) als Summe von i.i.d. $X_1,\ldots,X_n\sin Be(p)$
+Zufallsvariablen auf, d.h.
+\begin{gather*}
+S_{n}=\sum_{i=1}^{n} X_i \sim Bin(n,p),
+\quad
+\Exp{X_i}=p,
+\quad
+\Var{X_i}=p(1-p).
+\end{gather*}
+Die Approximation ergibt sich dann mithilfe des ZGS für grosse $n$
+folgendermassen:
+\[
+S_{n}\approxsim\cN\left(n \Exp{X_i},
+n\Var{X_i}\right)=\cN\left(np,np(1-p)\right)
+\]
+und natürlich ist die standardisierte Zufallsvariable folgendermassen verteilt:
+\[
+S_{n}^*=\frac{S_n-np}{\sqrt{np(1-p)}}=\frac{S_n - \Exp{S_n}}{\sqrt{\Var{S_n}}}
+\approxsim \cN(0,1).
+\]
+Eine etwas genauere Approximation für die Binomialverteilung erhält man, wenn
+man zusätzlich noch die sogenannte \emph{Kontinuitätskorrektur} benutzt:
+\begin{gather*}
+\begin{align*}
+\Prob{a<S_n\leq b} &=
+\Prob{\frac{a-np}{\sqrt{np(1-p)}}<S_n^*\leq\frac{b-np}{\sqrt{np(1-p)}}}
+\\
+&\approx
+\Phi\left(\frac{b+\frac{1}{2}-np}{\sqrt{np(1-p)}}\right)
+-
+\Phi\left(\frac{a+\frac{1}{2}-np}{\sqrt{np(1-p)}}\right)
+\end{align*}
+\end{gather*}
+Korrektur $+\frac{1}{2}$: Zentrieren der Stäbe im Histogramm macht Approximation
+genauer.
+
+\sep
+
+\subsection{Grosse Abweichungen und\\ Chernoff-Schranken}
+
+\sep
+
+\Def[Momenterzeugende Funktion] einer Zufallsvariable $X$ ist
+\[
+M_X(t)=\Exp{e^{tX}} \quad \text{für }t\in\R;
+\]
+das ist immer wohldefiniert in $[0,\infty]$, kann aber $+\infty$ werden.
+
+\sep
+
+\Thm Seien $X_1,\ldots,X_n$ i.i.d. Zufallsvariablen, für welche die
+momenterzeugende Funktion $M_X(t)$ für alle $t\in\R$ endlich ist. Für jedes
+$b\in\R$ gilt dann
+\[
+\Prob{S_n\geq b} \leq \exp\left(\inf_{t\in\R} \left(n\log M_X(t)
+-tb\right)\right).
+\]
+
+\sep
+
+\Thm Seien $X_1,\ldots,X_n$ unabhängig mit $X_i\sim Be(p_i)$ und
+$S_n=\sum_{i=1}^n X_i$. Sei ferner $\mu_n:=\Exp{S_n}=\sum_{i=1}^n p_i$ und
+$\delta > 0$. Dann gilt
+\[
+\Prob{S_n\geq (1+\delta)\mu_n} \leq
+\left(\frac{e^\delta}{(1+\delta)^{(1+\delta)}}\right)^{\mu_n}.
+\]
+
+\Com Sind $X_1,\ldots,X_n\riid Be(p)$, so ist $S_n\sim Bin(n,p)$ und man kann es
+für die Abschätzung von Restwahrscheinlichkeiten von der Binomialverteilung
+anwenden.
+
+\sep
+
+\section{Statistische Grundideen}
+
+\sep
+
+\Def[Stichprobe, Stichprobenumfang] Die Gesamtheit der Beobachtungen
+$x_1,\ldots,x_n$ oder Zufallsvariablen $X_1,\ldots,X_n$ nennt man oft eine
+\emph{Stichprobe}; die Anzahl $n$ heisst dann der \emph{Stichprobenumfang}.
+
+\sep
+
+\section{Schätzer}
+
+\sep
+
+\Def[Erwartungstreu] Ein Schätzer $T$ heisst \emph{erwartungstreu} für
+$\vartheta$, falls gilt $\Exp[\vartheta]{T}=\vartheta$; im Mittel (über alle
+denkbaren Realisationen $\omega$) schätzt $T$ also richtig. Allgemein heisst
+$\Exp[\vartheta]{T}-\vartheta$ der \emph{Bias} (oder erwartete Schätzfehler) von
+$T$; erwartungstreu (auf Englisch ``\emph{unbiased}'') bedeutet also, dass der
+Bias Null ist.
+
+\sep
+
+\Def[Mean Squared Error, MSE] Der \emph{mittlere quadratische Schätzfehler}
+(``\emph{mean squared error}'', MSE) ist definiert als
+\[
+\MSE[\vartheta]{T}:=\Exp[\vartheta]{(T-\vartheta)^2}.
+\]
+
+\sep
+
+\Def[Konsistent] Eine Folge von Schätzern $T^{(n)}$, $n\in\N$ heisst
+\emph{konsistent} für $\vartheta$, falls $T^{(n)}$ für $n\to\infty$ in
+$P_\vartheta$-Wahrscheinlichkeit gegen $\vartheta$ konvergiert, d.h. für jedes
+$\vartheta\in\Theta$ gilt
+\[
+\lim_{n\to\infty} \Prob[\vartheta]{\abs{T^{(n)}-\vartheta}>\epsilon} = 0
+\qquad
+\text{für jedes }\epsilon>0.
+\]
+(Das setzt anschaulich voraus, dass man beliebig viele Daten haben könnte.)
+
+\sep
+
+\Com Mithilfe der Rechenregeln für Erwartungswerte kann man den MSE zerlegen in
+\begin{gather*}
+\begin{align*}
+\MSE[\vartheta]{T}&=\Exp[\vartheta]{(T-\vartheta)^2}
+\\
+&=\Exp[\vartheta]{T^2} -2\vartheta\Exp[\vartheta]{T} + \vartheta^2
+\\
+&=\Exp[\vartheta]{T^2} - (\Exp[\vartheta]{T})^2 + (\Exp[\vartheta]{T})^2 
+-2\vartheta\Exp[\vartheta]{T} + \vartheta^2
+\\
+&=\Var[\vartheta]{T} + (\Exp[\vartheta]{T}-\vartheta)^2,
+\end{align*}
+\end{gather*}
+also in die \emph{Summe aus der Varianz des Schätzers $T$ und dem Quadrat des
+Bias}. \emph{Für erwartungstreue Schätzer sind Varianz und MSE also dasselbe
+(weil der zweite Summand wegfällt)}.
+
+\sep
+
+\subsection{Maximum-Likelyhood-Methode}
+\sep
+
+\Def[Likelyhood-Funktion]
+\begin{gather*}
+L(x_1,\ldots,x_n;\vartheta):=\begin{cases}
+p(x_1,\ldots,x_n;\vartheta)&\text{im diskreten
+Fall},\\
+f(x_1,\ldots,x_n;\vartheta)&\text{im stetigen Fall}.
+\end{cases}
+\end{gather*}
+$\log L(x_1,\ldots,x_n;\vartheta)$ heisst
+\emph{log-Likelihood-Funktion}.
+
+\sep
+
+\Def[Maximum-Likelyhood-Schätzer] Der ML-Schätzer $T$ für $\vartheta$ wird 
+dadurch definiert, dass er
+\[
+\vartheta \mapsto L(x_1,\ldots,x_n;\vartheta) \qquad
+\text{als Funktion von }\vartheta
+\]
+maximiert.
+
+\sep
+
+Meistens sind $X_1,\ldots,X_n$ i.i.d. unter $P_\vartheta$; die
+Likelihood-Funktion $L$ ist dann ein Produkt, und es ist bequemer, statt $L$ die
+log-Likelihood-Funktion $\log L$ zu maximieren, weil diese eine Summe ist. Statt
+zu maximieren sucht man ferner meistens nur Nullstellen der (partiellen)
+Ableitung(en) nach den Komponenten von $\vartheta$.
+
+\sep
+
+\Def[Momentenschätzer] Der Schätzer $T=(T_1,T_2)$, wobei
+$
+T_1=\frac{1}{n}\sum_{i=1}^n X_i = \overline{X}_n$,
+$
+T_2=\frac{1}{n}\sum_{i=1}^n (X_i-\overline{X}_n)^2
+=\left(\frac{1}{n}\sum_{i=1}^n X_i^2\right) - \left(\overline{X}_n\right)^2 
+$
+ist der sogenannte \emph{Momentenschätzer} für
+$
+(\Exp[\vartheta]{X},\Var[\vartheta]{X})
+$
+in jedem Modell $P_\vartheta$, wo $X_1,\ldots,X_n$ i.i.d. sind. 
+
+\sep
+
+\Cor[Momentenschätzer nicht erwartungstreu] 
+
+Der Momentenschätzer hat aber den allgemeinen Nachteil, dass er nicht
+erwartungstreu für $(\Exp[\vartheta]{X},\Var[\vartheta]{X})$ ist. Zwar ist für
+jedes $\vartheta$
+$
+\Exp[\vartheta]{T_1}=\Exp[\vartheta]{X}$; aber
+$\Exp[\vartheta]{T_2}=\frac{n-1}{n}\Exp[\vartheta]{X}$.
+Um einen erwartungstreuen Schätzer $T'$ für
+$(\Exp[\vartheta]{X},\Var[\vartheta]{X})$ zu haben benutzt man deshalb meistens
+$T_1'=T_1=\overline{X}_n$,\\
+$T_2'=\frac{n}{n-1}T_2 
+= \frac{1}{n-1}\sum_{i=1}^n(X_i-\overline{X}_n)^2
+=\frac{1}{n-1}\left(\sum_{i=1}^n X_i^2\right)
+-\frac{n}{n-1}\left(\overline{X}_n\right)^2$.
+
+\sep
+
+\Def[Empirische Stichprobenvarianz] Für $T_2'$ benutzt man oft auch die Notation
+\[
+S^2:=\frac{1}{n-1}\sum_{i=1}^n(X_i-\overline{X}_n)^2
+\]
+und nennt $S^2$ die \emph{empirische Stichprobenvarianz}.
+
+\sep
+
+\subsection{Verteilungsaussagen}
+
+\sep
+
+In vielen Situationen ist es nützlich oder nötig die Verteilung (unter
+$P_\vartheta$, für jedes $\vartheta\in\Omega$) eines Schätzers zu kennen. Exakte
+allgemeine Aussagen gibt es dazu nur wenige. Einen allgemeine
+\emph{approximativen Zugang} liefert der Zentrale Grenzwertsatz (siehe vorher).
+Für normalverteilte Stichproben hat man aber folgenden Satz:
+
+\sep
+
+\Thm Seien $X_1,\ldots,X_n\riid \cN(\mu,\sigma^2)$. Dann gilt:
+\begin{enumerate}[label=\arabic*)]
+  \item $\overline{X}_n$ ist normalverteilt gemäss
+  $\sim\cN(\mu,\frac{1}{n}\sigma^2)$, und
+  $\frac{\overline{X}_n-\mu}{\sigma/\sqrt{n}}\sim\cN(0,1)$.
+  \textcolor{red}{ (Richtige Var. im Nenner nehmen!)}
+  \item $\frac{n-1}{\sigma^2}S^2 = \frac{1}{\sigma^2}\sum_{i=1}^n
+  (X_i-\overline{X}_n)^2$ is $\chi^2$-verteilt mit $n-1$ Freiheitsgraden.
+  \item $\overline{X}_n$ und $S^2$ sind unabhängig.
+  \item Der Quotient
+  \[
+  \frac{\overline{X}_n-\mu}{S/\sqrt{n}} =
+  \frac{\frac{\overline{X}_n-\mu}{\sigma/\sqrt{n}}}{S/\sigma}
+  =\frac{\frac{\overline{X}-\mu}{\sigma/\sqrt{n}}}{
+  \sqrt{\frac{1}{n-1}\frac{n-1}{\sigma^2}S^2}}
+  \]
+  ist $t$-verteilt mit $n-1$ Freiheitsgraden.
+\end{enumerate}
+
+\sep
+
+\section{Tests}
+
+\sep
+
+\textbf{Grundidee:} Wir haben schon eine Vermutung, wo in $\Theta$ der richtige
+(aber unbekannte) Parameter $\vartheta$ liegen könnte, und wollen diese mit
+Hilfe der Daten überprüfen (``testen'').
+
+\sep
+
+\Def[Test, Teststatistik] Die Zufallsvariable
+$T=t(X_1,\ldots,X_n)$ heisst \emph{Teststatistik}. Die Entscheidungsregel
+bzw. der \emph{Test} ist $I_{\set{t(x_1,\ldots,x_n)\in K}}$. D.h. verwerfe $H_0$
+falls $I(\omega)=1$.
+
+\sep
+
+Grundsätzlich versucht man Tests immer so zu konstruieren, dass die folgenden
+Wahrscheinlichkeiten möglichst klein werden. Eine Möglichkeit dafür ist das
+folgende \textbf{asymmetrische Vorgehen}: Wähle ein Signifikanzniveau $\alpha$
+und versuche in zwei Schritten die folgenden Fehlerwahrscheinlichkeiten möglichst
+klein zu machen
+
+\begin{enumerate}[label=\alph*)]
+  \item \textbf{Fehler 1. Art:} $H_0$ wird zu unrecht abgelehnt (nicht
+  akzeptiert). Um diese Fehlerwhs. zu minimieren muss man
+  schauen, dass die folgende Whs. möglichst klein (kleiner als das
+  vorgegebene $\alpha$) wird:
+  \[
+  \sup \Prob[\vartheta\in\Theta_0]{T\in K} < \alpha 
+  \quad \text{(Signifikanzniveau)}
+  \]
+  \item \textbf{Fehler 2. Art:} $H_0$ wird zu unrecht akzeptiert (nicht
+  verworfen). Um diese Fehlerwhs. zu minimieren muss man schen, dass  die
+  folgende Whs möglichst klein, bzw. die Macht des Tests $\beta(\vartheta)$
+  möglichst gross wird:
+  \[
+  \inf \Prob[\vartheta\in\Theta_A]{T\not\in K} = 1 - \sup
+  \underbrace{\Prob[\vartheta\in\Theta_A]{T\in K}}_{=\beta(\vartheta) \quad
+  (\vartheta\in\Theta_A)}
+  \]
+\end{enumerate}
+
+Dieses asymmetrische Vorgehen impliziert folgendes:
+\begin{itemize}
+  \item Es ist schwieriger $H_0$ zu verwerfen. Deshalb wählt man in der Praxis
+  für $H_0$ die Negation der Aussage (gelingt es trotzdem $H_0$ zu verwerfen
+  kann man zuversichtlicher sein).
+  \item Es kann durchaus sein, dass man durchs Vertauschen von $H_0$ und $H_A$
+  unterschiedliche Testergebnisse erhält.
+\end{itemize}
+
+\Com Es ist nicht immer möglich die Verteilung von $T$ unter jedem
+$\vartheta\in\Theta_A$ für die Macht des Tests zu bestimmen. Dann gibt man sich
+damit zufrieden, dass man nur die Verteilung von $T$ unter
+$\vartheta\in\Theta_A$ zum Einhalten des Signifikanzniveaus bestimmt, um das
+Signifikanzniveau einzuhalten.
+
+\sep
+
+\Def[P-Wert] Der Wert wird bestimmt durch die gezogene Stichprobe. Er deutet an,
+wie wahrscheinlich es ist, ein solches Stichprobenergebnis oder ein extremeres
+zu erhalten, wenn die Nullhypothese wahr ist. Ein häufiges Missverständnis ist
+die Gleichsetzung dieser Aussage mit der falschen Behauptung, der p-Wert würde
+angeben, wie wahrscheinlich die Nullhypothese bei Erhalt dieses
+Stichprobenergebnisses ist. Mit dem p-Wert wird also angedeutet, wie extrem das
+Ergebnis ist: je kleiner der p-Wert, desto mehr spricht das Ergebnis gegen die
+Nullhypothese.
+
+\resizebox{1\linewidth}{!}{
+\begin{tabular}{lccc}
+&Links & Beidseitig & Rechts\\
+$p$-Wert=
+&
+$\Prob[\vartheta_0]{X\leq x}$ 
+&
+$\begin{cases}
+\Prob[\vartheta_0]{x\geq X}, & T(\omega)>\mu_0\\
+\Prob[\vartheta_0]{X\geq x}, & T(\omega)<\mu_0\\
+\end{cases}$
+& 
+$\Prob[\vartheta_0]{x\leq X}$
+\end{tabular}
+}
+Falls wir ein Signifikanzlevel $\alpha$ a priori gegeben haben, dann gilt also
+\begin{itemize}
+  \item verwerfe $H_0$, falls $p$-Wert $\leq\alpha$, und
+  \item akzeptiere $H_0$, falls $p$-Wert $>\alpha$.
+\end{itemize}
+
+\sep
+
+\subsection{Konstruktion von Tests}
+
+\sep
+
+\Def[Likelihood Quotient] Sei $L(x_1,\ldots,x_n;\vartheta)$ die
+Likelihood-Funktion; für diskrete $X_i$ ist das also im Modell $P_\vartheta$ die
+Wahrscheinlichkeit $\Prob[\vartheta]{X_1=x_1,\ldots,X_n=x_n}$, die beobachteten
+Werte $x_1,\ldots,x_n$ zu erhalten. Für $\vartheta_0\in\Theta_0$ und
+$\vartheta_A\in\Theta_A$ betrachten wir den \emph{Likelihood-Quotienten} 
+\[
+R(x_1,\ldots,x_n;\vartheta_0,\vartheta_A):=
+\frac{L(x_1,\ldots,x_n;\vartheta_0)}{L(x_1,\ldots,x_n;\vartheta_A)}.
+\]
+\emph{Ist dieser Quotient klein, so ist der Nenner wesentlich grösser als der
+Zähler.
+Das bedeutet also, dass die Beobachtungen $x_1,\ldots,x_n$ als Resultate im
+Modell $P_{\vartheta_A}$ deutlich wahrscheinlicher sind als im Modell
+$P_{\vartheta_0}$; die Daten sprechen also gegen $\vartheta_0$ im Vergleich zu
+$\vartheta_A$}.
+
+\emph{Es liegt deshalb nahe, als Teststatistik
+$T:=R(X_1,\ldots,X_n;\vartheta_0,\vartheta_A)$ und als kritischen Bereich
+$K:=[0,c)$ zu wählen, wenn man $\vartheta_0$ gegen $\vartheta_A$ testen will;
+man verwirft dann also die Hypothese $H_0$, wenn der Quotient $R$ zu klein wird.
+Wegen $R\geq 0$ genügt $[0,c)$ statt $(-\infty,c)$.}
+
+\sep
+
+Der letzte Schritt den wir allgemein noch machen müssen ist, um den Kritischen
+Bereich $K$ passend zum gewünschten Niveau $\alpha$ festlegen zu können,
+brauchen wir die Verteilung der Teststatistik $T$ unter der Hypothese $H_0$,
+d.h. in jedem Modell $P_\vartheta$ mit $\vartheta\in\Theta_0$. Evtl. 
+
+\sep
+
+Sind Hypothese und Alternative beide einfach (was leider eher selten der Fall
+ist), so ist dieser Test optimal, wie das folgende Resultat zeigt.
+
+\sep
+
+\Thm[Neyman Pearson-Lemma] Sei $\Theta_0=\set{\vartheta_0}$ und
+$\Theta_A=\set{\vartheta_A}$. Wie oben sei
+$T:=R(x_1,\ldots,x_n;\vartheta_0,\vartheta_A)$ und $K:=[0,c)$, sowie
+$\alpha^*=\Prob[\vartheta_0]{T\in K}=\Prob[\vartheta_0]{T\leq c}$. Der
+\emph{Likelihood-Quotienten-Test} mit Teststatistik $T$ und kritischem Bereich
+$K$ ist dann im folgenden Sinn optimal: Jeder andere Test mit Signifikanzniveau
+$\alpha\leq\alpha^*$ hat kleinere Macht bzw. eine grössere Wahrscheinlichkeit
+für einen Fehler 2. Art. 
+
+(Etwas formaler: Ist $(T',K')$ ein anderer Test mit $\Prob[\vartheta_0]{T'\in
+K'}\leq \alpha^*$, so gilt auch $\Prob[\vartheta_A]{T'\in K'}\leq
+\Prob[\vartheta_A]{T\in K}$.)
+
+\sep
+
+\Def[Verallgemeinerter Likelihood-Quotient] 
+\[
+R(x_1,\ldots,x_n):=\frac{
+\sup_{\vartheta \in\Theta_0}L(x_1,\ldots,x_n;\vartheta)
+}{
+\sup_{\vartheta \in\Theta_A}L(x_1,\ldots,x_n;\vartheta)
+}
+\]
+oder auch
+\[
+\tilde{R}(x_1,\ldots,x_n):=\frac{
+\sup_{\vartheta \in\Theta_0}L(x_1,\ldots,x_n;\vartheta)
+}{
+\sup_{\vartheta \in\Theta_A\cupdot\Theta_0}L(x_1,\ldots,x_n;\vartheta)
+}
+\]
+Die Teststatistik ist dann $T_0:=R(X_1,\ldots,X_n)$ bzw.
+$\tilde{T}:=\tilde{R}(X_1,\ldots,X_n)$ mit krit. Ber. $K_0:=[0,c_0)$.
+
+\sep
+
+\section{Konfidenzbereiche}
+
+\sep
+
+\textbf{Grundidee:} Wie in vorherigen Abschnitt suchen wir aus einer Familie
+$(P_\vartheta)_{\vartheta\in\Theta}$ von Modellen eines, das zu unseren Daten
+$x_1,\ldots,x_n$ passt. Ein Schätzer für $\vartheta$ gibt uns dabe einen
+einzelnen zufälligen möglichen Parameterwert. Weil es schwierig ist, mit diesem
+einen Wert den richtigen (aber unbekannten) Paremeter zu treffen, suchen wir nun
+stattdessen eine \emph{(zufällige) Teilmenge des Parameterbereichs}, die
+hoffentlich den wahren Parameter enthält.
+
+\sep
+
+\Def[Konfidenzbereich] Etwas formaler ist ein \emph{Konfidenzbereich für
+$\vartheta$} zu Daten $x_1,\ldots,x_n$ eine Menge
+$C(x_1,\ldots,x_n)\subseteq\Theta$; in den meisten Fällen ist das ein Intervall,
+dessen Endpunkte von $x_1,\ldots,x_n$ abhängen. Ersetzen wir die Daten
+$x_1,\ldots,x_n$ durch die sie generierenden Zufallsvariablen, so ist
+$C(X_1,\ldots,X_n)$ also eine zufällige Teilmenge von $\Theta$, mit Realisierung
+$C(\omega)=C(X_1(\omega),\ldots,X_n(\omega))$ bei einem festen $\omega$. Ein
+solches $C$ heisst ein \emph{Konfidenzbereich zum Niveau $1-\alpha$}, falls gilt
+\[
+\Prob[\vartheta]{\vartheta\in C(X_1,\ldots,X_n)}\geq 1-\alpha
+\qquad
+\text{für alle }\vartheta\in\Theta
+\]
+d.h. in jedem Modell erwischt man den Parameter mit grosser Wahrscheinlichkeit.
+
+\sep
+
+Seien die Daten die Realisationen von Zufallsvariablen $X_1,\ldots,X_n$, die
+alle unter $P_\vartheta$ i.i.d. $\sim\cN(\mu,\sigma^2)$ sind. Die
+offensichtlichen \emph{Schätzer} für $(\mu,\sigma^2)$ sind
+$T=(\overline{X}_n,S^2)$. Das Konfidenzintervall wird um diese Schätzer herum
+angesetzt.
+
+\begin{enumerate}[label=\alph*)]
+  \item \emph{$\mu$ gesucht, $\sigma^2$ bekannt}: Wir wissen, dass in diesem
+  Fall $\frac{\overline{X}_n-\mu}{\sigma/\sqrt{n}}\sim \cN(0,1)$ unter
+  $P_\vartheta$. Also ist das Konfidenzintervall für $\mu$ zum Niveau $1-\alpha$
+  \begin{gather*}
+  C(X_1,\ldots,X_n)=\left[
+  \overline{X}_n-z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}},
+  \overline{X}_n+z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}
+  \right].
+  \end{gather*}
+  \item \emph{$\mu$ gesucht, $\sigma^2$ gesucht}: Wir wissen, dass in diesem
+  Fall $\frac{\overline{X}_n-\mu}{S/\sqrt{n}}\sim t_{n-1}$ unter $P_\vartheta$.
+  Also ist das Konfidenzintervall für $\mu$ zum Niveau $1-\alpha$
+  \begin{gather*}
+  C(X_1,\ldots,X_n)=\left[
+  \overline{X}_n-t_{n-1,1-\frac{\alpha}{2}}\frac{S}{\sqrt{n}},
+  \overline{X}_n+t_{n-1,1-\frac{\alpha}{2}}\frac{S}{\sqrt{n}}
+  \right].
+  \end{gather*}
+  Weil $\frac{1}{\sigma^2}(n-1)S^2=\frac{1}{\sigma^2}\sum_{i=1}^n
+  (X_i-\overline{X}_n)^2\sim\chi_{n-1}^2$ unter $P_\vartheta$ ist, ist das
+  Konfidenzinterval für $\sigma^2$ zum Nieveau $1-\alpha$
+  \begin{gather*}
+  C(X_1,\ldots,X_n)=\left[
+  \frac{(n-1)S^2}{\chi^2_{n-1,1-\frac{\alpha}{2}}},
+  \frac{(n-1)S^2}{\chi^2_{n-1,\frac{\alpha}{2}}}
+  \right].
+  \end{gather*}
+  \item \emph{$\mu$ bekannt, $\sigma^2$ gesucht}: Wir bestimmen das
+  Konfidenzinterval für $\sigma^2$ zum Niveau $1-\alpha$ genau wie bei b).
+\end{enumerate}
+
+\sep
+
+\Important Man bemerke, dass das Konfidenzintervall in allen Fällen schmäler
+wird, sobald der Stichprobenumfang $n$ grösser wird!
+
+\sep
+
+\Com Können wir keine genauen Verteilungsaussagen über die Zufallsvariablen
+$X_1,\ldots,X_n$ machen, so ist es schwieriger exakte Konfidenzintervalle zu
+erhalten. In allgemeinen Situationen kann man oft nur approximative
+Konfidenzintervalle mit Hilfe des Zentralen Grenzwertsatzes bekommen (siehe
+vorher).
+\sep
+
+\textbf{Vom Konfidenzbereich zur Hypothese:}
+\[
+\begin{matrix}
+C(X_1,\ldots,X_n)\text{ ist}\\
+\text{Konfidenzbereich für}\\
+\vartheta \text{ zum Niveau } 1-\alpha
+\end{matrix}
+\Longrightarrow
+\begin{matrix}
+I_{\set{\vartheta_o\not\in C(X_1,\ldots,X_n)}} \text{ ist}\\
+\text{Test für }\vartheta=\vartheta_0\\
+\text{zum Niveau }\alpha
+\end{matrix}
+\]
+
+\sep
+
+\textbf{Von der Hypothese zum Konfidenzbereich:}
+
+\[
+\begin{matrix}
+I_{\set{t(x_1,\ldots,x_n) \in K_{\vartheta_0}}}\\
+\text{Test für }\vartheta=\vartheta_0\\
+\text{zum Niveau }\alpha
+\end{matrix}
+\Longrightarrow
+\begin{matrix}
+C(X_1,\ldots,X_n):=K_\vartheta ^c\\
+\text{ist Konfidenzbereich für}\\
+\vartheta \text{ zum Niveau } 1-\alpha
+\end{matrix}
+\]
+
+\sep
+
+\section{Sonstiges}
+
+\sep
+
+\textbf{Drawing Elements from a Set:} The table shows the umber of possibilities
+for selecting $k$ elements from a set of size $n$ (the example set is
+$\{a,b,c\}$ thus $n=3$; and $k=2$):
+
+\begin{table}[H]
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{|l|cc|cc|}
+\toprule
+ & \multicolumn{2}{c|}{\textbf{Ordered}} &
+ \multicolumn{2}{c}{\textbf{Unordered}}\\
+ & Number & Examples & Number & Examples\\
+\midrule
+\shortstack{w.\\ rep.} & $\begin{matrix}n^k\\\text{(Variat.)}\end{matrix}$ &
+$\begin{matrix}
+aa & ab & ac\\
+ba & bb & bc\\
+ca & cb & cc
+\end{matrix}$
+& 
+$\binom{n+k-1}{k}$
+&
+$\begin{matrix}
+aa & ab & ac\\
+bb & bc &   \\
+cc\\
+\end{matrix}$\\
+\hline
+\shortstack{w.o.\\ rep.} &
+$n^{\underline{k}}$
+&
+$\begin{matrix}
+ab & ac \\
+ba & bc \\
+ca & cb\\
+\end{matrix}$
+&
+$\begin{matrix}\binom{n}{k}\\\text{\small(Kombin.)}\end{matrix}$
+&
+$\begin{matrix}
+ab & ac & bc\\
+\end{matrix}$\\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\sep
+
+\textbf{Identitäten} $\binom{n}{k}=\binom{n}{n-k}$, \quad
+$\binom{n}{k}=\binom{n-1}{k-1}+\binom{n-1}{k}$,
+\\
+$(x+y)^n=\sum_{k=0}^n\binom{n}{k}x^{n-k}y^k$, \quad
+$\sum_{k=0}^n\binom{n}{k}=2^n$,\\
+$\sum_{k=0}^n(-1)^k\binom{n}{k}=0$, 
+
+\sep
+
+\textbf{Geometrische Reihe}
+\[
+S_n = a_0\sum_{k=0}^n q^k = a_0\frac{1-q^{n+1}}{1-q} = a_0 \frac{q^{n+1}-1}{q-1}
+\]
+\[
+S = a_0\sum_{k=0}^\infty = \frac{1}{1-q} \qquad \text{ falls } \abs{q}<1
+\]
+\Important Auf die Indizes achten! Sie beginnt bei $k=0$ somit ist das erste Glied
+1. Falls bei $k=1$ begonnen wird muss man $-1$ addieren!
+
+\sep
+
+\textbf{Arithmetische Reihe}
+\[
+S_n = \sum_{k=0}^{n}\left(k\cdot d + a_0\right)= (a_0+a_n) \cdot \frac{(n+1)}{2}
+\]
+wobei
+\[
+a_i = i\cdot d + a_0 \quad \forall i\geq 1
+\]
+und wobei $d$ die Differenz zwischen zwei Folgegliedern ist.
+
+\sep
+
+\Ex[Summe der Zahlen von 0 bis $n$]
+\[
+\sum_{k=0}^n k = n\cdot \frac{(n+1)}{2}
+\]
+
+\sep
+
+\Ex[Summe der ersten $n$ ungeraden Zahlen]
+\begin{gather*}
+\sum_{k=1}^n(2k-1) = \sum_{k=0}^{n-1}(2k+1) = 1 + 3 + 5 + 7 +\cdots+ (2n-1) =
+n^2
+\end{gather*}
+
+\sep
+
+\textbf{Summe von Quadratzahlen}
+
+Die Summe der ersten $n$ Quadratzahlen ist für alle $n\geq 1$:
+\[
+\sum_{k=1}^n k^2 = \frac{n \cdot (n+1) \cdot (2n+1)}{6}.
+\]
+
+\sep
+
+\textbf{Summe von spezieller Potenzreihe}
+
+Die Summe für die folgende Potenzreihe für ein $q$ 
+mit $\abs{q}<1$ ist:
+\begin{align*}
+\sum_{k=1}^\infty k\cdot q^{k-1}
+&=
+\sum_{k=1}^\infty \frac{d}{d q} (q^k)
+=
+\frac{d}{d q}\left(\sum_{k=1}^\infty q^k\right)
+\\
+&=
+\frac{d}{d q}\left(\frac{1}{1-q} -1\right)
+=
+\frac{1}{(1-q)^2}.
+\end{align*}
+
+\Com Oft substituiert man $q:=(1-p)$.
+
+
+\sep
+
+\textbf{Reihenentwicklung von $e^x$}
+
+$e^x = \sum_{n=0}^\infty \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!}
+ + \frac{x^3}{3!} + \cdots,$
+
+\sep
+
+\textbf{Partielle Integration}
+
+$
+\int_a^b f'(x)g(x) \ dx = \left[f(x)g(x)\right]_a^b - \int_a^b f(x)g'(x) \ dx
+$
+\sep
+
+\textbf{Substitution}
+
+Ist $f$ stetig und $g$ ein Diffeomorphismus (in beiden Richtungen stetig
+differenzierbare Abbildung), dann gilt
+$
+\int_a^b f(g(x))g'(x) \ dx = \int_{g(a)}^{g(b)} f(y) \ dy
+$
+
+$
+y = g(x)	\Longleftrightarrow x = g^{-1}(y)
+$
+
+$
+\frac{dy}{dx} = g'(x) \Longleftrightarrow dy = g'(x) dx
+$
+
+\sep
+
+$
+a + b = \max(a,b) + \min(a,b)
+$
+
+\sep
+
+Beim Berechnen der Varianz verwendet man oft den Trick dass
+$\Var{X}=\Exp{X^2}-(\Exp{X})^2 = \Exp{X(X-1)}+\Exp{X}-(\Exp{X})^2$, weil der
+Erwartungswert $\Exp{X(X-1)}$ in manchen Fällen einfacher als $\Exp{X^2}$ zu
+berechnen ist.
+
+\sep
+
+\end{multicols*}
+
+\newlength{\beschrXdiskrL}
+\setlength{\beschrXdiskrL}{9cm}
+
+\begin{landscape}
+\resizebox{1\linewidth}{!}{
+\begin{tabular}{cm{\beschrXdiskrL}cccccHH}
+\\\addlinespace[0.25em]\toprule\addlinespace[0.25em]
+\begin{tabular}{c}
+\textbf{Diskrete}\\
+\textbf{Verteilung $\mu_X$}
+\end{tabular} 
+&
+\multicolumn{1}{c}{\textbf{Beschrieb von $X$}} &
+\textbf{$\cW(X)=$} & 
+\begin{tabular}{c}
+\textbf{Gewichtsfunktion}\\
+\textbf{$p_X(k)=\Prob{X=k}=$}
+\end{tabular} &
+\begin{tabular}{c}
+\textbf{Verteilungsfunktion}\\
+\textbf{$F_X(t)=\Prob{X\leq t}=$}
+\end{tabular} &
+\textbf{$\Exp{X}=$} & 
+\textbf{$\Var{X}=$} &
+\textbf{Plots (einzeln, cum)} &
+\textbf{Beispiele}
+\\\addlinespace[0.25em]\midrule\addlinespace[0.25em]
+\begin{tabular}{c}
+Gleichverteilung\\
+$X\sim\cU_T$
+\end{tabular} &
+\begin{tabular}{p{\beschrXdiskrL}}
+Alle $n$ Elementarereignisse der Trägermenge $T$ sind gleich wahrscheinlich.
+\end{tabular}
+&
+$\set{x_1,x_2,\ldots,x_n}$&
+$\begin{cases}
+\frac{1}{n} & x\in\cW(X),\\
+0,& x\not\in\cW(X).
+\end{cases}$&
+$\displaystyle \frac{\card{\dset{x_k\in\cW(X)}{x_k\leq t}}}{n}$ 
+&
+$\displaystyle \frac{1}{n}\sum_{i=1}^n x_i$
+&
+$\frac{1}{n}\left(\sum_{i=1}^n x_i^2 -(x_n)^2\right)$
+&
+&
+%Ergebnis beim Würfeln, Münzwurf, zufällige dreistellige Zahl, zufällige
+%Permutation von $\set{1,\ldots,n}$ ($N=n!$)
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Bernoulli\\
+$\displaystyle X\sim Be(p)$
+\end{tabular} 
+&
+\begin{tabular}{p{\beschrXdiskrL}}
+Anzahl der Erfolge $X$ bei einem einzelnen 0-1-Experiment $A_1$ mit
+Erfolgsparameter $p$
+\\\addlinespace[0.25em]
+\multicolumn{1}{c}{$X=Y_1=I_{A_1}$\qquad (Bem.: $X^2=X$)}
+\end{tabular}
+&
+\begin{tabular}{c}
+$\set{0,1}$
+\\
+\multicolumn{1}{l}{1=Erfolg,}\\
+\multicolumn{1}{l}{0=Misserfolg.}
+\end{tabular}
+&
+$\displaystyle p^k(1-p)^{1-k}$
+&
+$ \begin{cases}
+0 & t < 0 \\
+1-p & 0 \leq t < 1 \\
+1 & t \geq 1
+\end{cases}
+$ 
+&
+$p$ 
+&
+$p(1-p)$ 
+&
+&
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Binomial\\
+$\displaystyle X\sim Bin(n,p)$
+\\
+\\
+Rekursionsformel:\\
+$\Prob{X=k+1}=$\\
+$\frac{p}{1-p}\frac{n-k}{k+1}\Prob{X=k}$
+\end{tabular} 
+& 
+\begin{tabular}{p{\beschrXdiskrL}}
+Anzahl der Erfolge $X$ bei $n$ unabhängigen 0-1-Experimenten mit
+Erfolgsparameter $p$. Sind $Y_1,\ldots,Y_n\riid Be(p)$, so ist
+\\\addlinespace[0.25em]
+\multicolumn{1}{c}{
+$\displaystyle X=\sum_{i=1}^{n} I_{A_i} =\sum_{i=1}^{n}Y_i\sim Bin(n,p).$
+}
+\\\addlinespace[0.25em]
+Approx.: $X\approxsim\cP(np)$ gut falls $np^2\leq 0.05$.
+\end{tabular}
+&
+$\displaystyle \set{0,1,\ldots,n}$ 
+&
+$\displaystyle \binom{n}{k}p^k(1-p)^{n-k}$
+&
+$\displaystyle \sum_{k=0}^{\floor{t}} \binom{n}{k}p^k(1-p)^{n-k}$ 
+&
+$np$ 
+&
+$np(1-p)$ 
+&
+&
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Geometrisch\\
+$\displaystyle X\sim Geom(p)$ \\
+\\
+``gedächtnislos''
+\end{tabular} 
+&
+\begin{tabular}{p{\beschrXdiskrL}}
+Wartezeit $X$ auf den ersten Erfolg bei einer unendlichen Folge von
+0-1-Experimenten mit Erfolgsparameter $p$. Spezialfall von $NB(1,p)$ 
+\\\addlinespace[0.25em]
+\multicolumn{1}{c}{
+$\displaystyle
+\ X=\inf\dset{i\in\N}{A_i\text{ tritt ein}}
+$}
+\\\addlinespace[0.25em]
+\multicolumn{1}{c}{
+$
+=\inf\dset{n\in\N}{Y_i=1}$
+}
+\end{tabular} 
+&
+$\set{1,2,3,\ldots}$ 
+&
+$(1-p)^{k-1}p$ 
+&
+\begin{tabular}{c}
+$1-(1-p)^{\floor{t}}$
+\\\addlinespace[0.75em]
+$\Prob{X>t} = (1-p)^{\floor{t}}$
+\end{tabular}
+&
+$\displaystyle \frac{1}{p}$ 
+&
+$\displaystyle \frac{1-p}{p^2}$ 
+&
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Negativbinomial\\
+$\displaystyle X\sim NB(r,p)$
+\end{tabular} 
+&
+\begin{tabular}{p{\beschrXdiskrL}}
+Wartezeit $X$ auf den $r$-ten Erfolg bei einer unendlichen Folge von
+0-1-Experimenten mit Erfolgsparameter $p$. \\
+\multicolumn{1}{c}{
+$X=\inf\dset{k\in\N}{\sum_{i=1}^k I_{A_i}=r}$
+}
+\\\addlinespace[0.25em]
+\multicolumn{1}{c}{
+$\ \ =\inf\dset{k\in\N}{\sum_{i=1}^k Y_i=r}$
+}
+\\\addlinespace[0.25em]
+Sind die ZV $X_1,\ldots,X_r\riid Geom(p)$, so ist $X:=X_1+\cdots+X_r\sim
+NB(r,p)$.
+\end{tabular} 
+& 
+$\set{r,r+1,r+2,\ldots}$
+&
+$\displaystyle\binom{k-1}{r-1} p^r(1-p)^{k-r}$ 
+&
+$\displaystyle \sum_{k=r}^{\floor{t}} \binom{k-1}{r-1} p^r(1-p)^{k-r}$ 
+&
+$\displaystyle \frac{r}{p}$ &
+$\displaystyle \frac{r(1-p)}{p^2}$ &
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Hypergeometrisch\\
+$\displaystyle X\sim HypG(n,r,m)$\\
+\\
+($r$ wie ``richtig")\\
+\end{tabular} 
+&
+\begin{tabular}{p{\beschrXdiskrL}}
+In einer Urne seien $n$ Gegenstände, davon $r$ vom Typ 1 und $n-r$ vom Typ 2.
+Man zieht ohne Zurücklegen $m$ der Gegenstände; die Zufallsvariable $X$
+beschreibt die Anzahl der Gegenstände vom Typ 1 in dieser Stichprobe vom Umfang
+$m$.
+\\
+$T=T_1\cupdot T_2$, $\card{T}=n$, $\card{T_1}=r$, $\card{T_2}=n-r$
+\\\addlinespace[0.25em]
+$S\subseteq T$, $\card{S}=m$
+\\\addlinespace[0.25em]
+\multicolumn{1}{c}{
+$X=\card{\dset{t\in S}{t\in T_1}}$
+}
+\end{tabular} 
+&
+$\set{0,1,\ldots,\min(m,r)}$ 
+&
+$\displaystyle \frac{\displaystyle
+\binom{r}{k}\binom{n-r}{m-k}}{\displaystyle \binom{n}{m}} $ 
+&
+$\displaystyle \sum_{k=0}^{\floor{t}}
+\frac{\displaystyle\binom{r}{k}\binom{n-r}{m-k}}{\binom{n}{m}}$ 
+& 
+$\displaystyle\frac{mr}{n}$ 
+& 
+$m \frac{r}{n} \left( 1-\frac{r}{n} \right) \frac{n-m}{n-1}$ 
+&
+&
+Im Schweizer Lotto, wo man 6 aus 45 Zahlen richtig tippen soll, ist die Anzahl
+der richtig getippten Zahlen bei einem einzelnen Tipp hypergeometrisch verteilt
+mit Parametern $n=45$, $r=6$, und $m=6$.
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Poisson\\
+$\displaystyle X\sim \cP(\lambda)$
+\end{tabular} &
+Anzahl Ereignisse $X$ in einem festen Zeitintervall. Der Param. $\lambda>0$ ist
+dabei die durchschnittl., bzw. die erwartete Anz. Ereignisse in dem
+Intervall. 
+& $\set{0,1,2,\ldots}$ 
+&
+$\displaystyle e^{-\lambda}\frac{\lambda^k}{k!}$ 
+&
+$\displaystyle e^{-\lambda}\sum_{k=0}^{\floor{t}}\frac{\lambda^k}{k!}$ 
+&
+$\lambda$ 
+& 
+$\lambda$ 
+&
+Anzahl Anrufe bei einer Telefonzentrale in einer bestimmten Periode; Anzahl der
+Grossschäden bei einer Versicherung in einer bestimmten Periode; die Anzahl der
+Jobs, die bei einem Server in einer bestimmten Periode eintreffen.
+\\
+\bottomrule
+\end{tabular}
+}
+
+
+\newpage
+
+\newlength{\beschrXstetL}
+\setlength{\beschrXstetL}{4.8cm}
+
+\resizebox{1\linewidth}{!}{
+\begin{tabular}{cm{\beschrXstetL}cccccHH}
+\toprule\addlinespace[0.25em]
+\begin{tabular}{c}
+\textbf{Stetige}\\
+\textbf{Verteilung $\mu_X$}
+\end{tabular} 
+& 
+\textbf{Beschrieb von $X$} 
+&
+\textbf{$\cW(X)=$} 
+&
+\begin{tabular}{c} 
+\textbf{Dichtefunktion}
+\\
+$f_X(t)=$\ $\color{red} (\neq\Prob{X=t})$
+\end{tabular}
+&
+\begin{tabular}{c}
+\textbf{Verteilungsfunktion}\\
+\textbf{$F_X(t)=\Prob{X\leq t}=$}
+\end{tabular}
+&
+\textbf{$\Exp{X}$=} 
+&
+\textbf{$\Var{X}=$} 
+&
+\textbf{Beispiele}
+\\\addlinespace[0.25em]\midrule\addlinespace[0.25em]
+\begin{tabular}{c}
+Gleichverteilung\\
+$X\sim\cU(a,b)$
+\end{tabular} &
+Zufällige Wahl eines Punktes in $[a,b]$. 
+&
+$[a,b]$ &
+$\begin{cases}
+\frac{1}{b-a}, & \text{für }a\leq t\leq b,\\
+0,&\text{sonst.}
+\end{cases}
+$
+&
+$\begin{cases}
+0, & \text{für }t<a,\\
+\frac{t-a}{b-a}, &\text{für }a\leq t\leq b,\\
+1,&\text{für }t>b.
+\end{cases}$ &
+$\displaystyle\frac{a+b}{2}$ &
+$\displaystyle\frac{1}{12}(b-a)^2$
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Exponential\\
+$X\sim Exp(\lambda)$\\
+``gedächtnislos''\\
+$\cProb{X>t+s}{X>s}$\\
+$=\Prob{X>t}$
+\end{tabular} &
+Analogon der geometrischen Verteilung. Modell für Wartezeiten oder Lebensdauern.
+Wartezeit, bis zum eintreffen eines Ereignisses. $\lambda>0$ steht für die
+erwartete Anzahl Ereignisse pro Einheitsintervall. &
+$[0,\infty)$ &
+$\begin{cases}
+\lambda e^{-\lambda t}, & \text{für } t\geq 0,\\
+0, & \text{für }t<0.
+\end{cases}$ &
+$\begin{cases}
+1-e^{-\lambda t}, & \text{für }t\geq 0,\\
+0, & \text{für }t<0.
+\end{cases}$ &
+$\displaystyle\frac{1}{\lambda}$ (MTBF) &
+$\displaystyle\frac{1}{\lambda^2}$ 
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Standard-Normal\\
+$X\sim\cN(0,1)$
+\end{tabular} &
+Glockenkurve mit Erwartungswert $\mu=0$ und Varianz $\sigma^2=1$.
+&
+$\R$ 
+&
+$\varphi(t)=\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}t^2}$ 
+&
+$\Phi(t)=\int_{-\infty}^{t}\varphi(s) \ ds$ 
+&
+$0$ 
+&
+$1$
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Normalverteilung, NV,\\
+oder Gauss-Verteilung mit\\
+Parameter $\mu\in\R$, $\sigma^2 > 0$\\
+$X\sim\cN(\mu,\sigma^2)$
+\end{tabular} &
+\begin{tabular}{c}
+Ist $Y\sim\cN(\mu,\sigma^2)$, so ist\\\addlinespace[0.5em]
+$X:=\frac{Y-\mu}{\sigma}\sim \cN(0,1)$
+\end{tabular}
+&
+$\R$ 
+&
+$\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(t-\mu)^2}{2\sigma^2}}
+=\frac{1}{\sigma}\varphi(\frac{t-\mu}{\sigma})$ 
+&
+$\Prob{\frac{X-\mu}{\sigma}\leq\frac{t-\mu}{\sigma}}=\Phi(\frac{t-\mu}{\sigma})$
+& 
+$\mu$ 
+& 
+$\sigma^2$ 
+&
+Streuung von Messwerten um ihren Mittelwert, Gewichte oder Grössen von
+Individuen einer grössen Bevölkerung, Leistungen in IQ-Tests, Renditen von
+Aktien, usw.
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Cauchy\\
+$X\sim Cauchy(s,t)$
+\end{tabular}
+&
+Breitenparameter $s>0$ und 
+Lageparameter $t$, $\abs{t}<\infty$
+&
+$\R$ &
+$\displaystyle \frac{1}{\pi} \cdot \frac{s}{s^2 + (x-t)^2}$ &
+$\displaystyle \frac{1}{2}+\frac{1}{\pi}\arctan\left(\frac{x-t}{s}\right)$ &
+\begin{tabular}{c}
+existiert nicht\\
+(nicht abs. integ.)
+\end{tabular} &
+existiert nicht
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Pareto\\
+$X\sim Par(\alpha,x_0)$
+\end{tabular}
+&
+Whs., dass Schadengrösse $X$ grösser als $x_0>0$ ist für Param. $\alpha>0$
+(``Excess-of-Loss'').
+$X\sim\cU(0,1)\Longrightarrow \frac{1}{X}\sim Par(1,1)$.
+&
+$[x_0,\infty)$ &
+$\begin{cases}
+  \frac{\alpha x_0^\alpha}{t^{\alpha+1}} & t\geq x_0 \\
+  0 & t<x_0
+\end{cases}$ &
+$1-(\frac{x_0}{t})^{\alpha}$ &
+$\begin{cases}
+  x_0 \frac{\alpha}{\alpha-1} & \alpha > 1,\\
+  \infty                      & \alpha \leq 1.
+\end{cases}$ &
+$\begin{cases}
+  x_0^2 \frac{\alpha}{(\alpha-2)(\alpha-1)^2} & \alpha > 2, \\
+ \infty & 1 < \alpha \leq 2.
+\end{cases}$
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Chi-Quadrat-Verteilung\\
+mit $n$ Freiheitsgraden\\
+$X\sim\chi_n^2$
+\end{tabular} 
+&
+\begin{tabular}{p{\beschrXstetL}}
+Sind $Y_1,\ldots,Y_n\riid\cN(0,1)$, so ist\\ 
+\multicolumn{1}{c}{$\displaystyle X:=\sum_{i=1}^n Y_i^2\sim\chi_n^2.$}
+\end{tabular}
+&
+$[0,\infty)$ 
+&
+\multicolumn{2}{l}{
+\boxed{
+\begin{tabular}{p{9cm}}
+Für $n=2$ ergibt das $Exp(\frac{1}{2})$.
+Spezialfall einer $Ga(\alpha,\lambda)$-Verteilung mit
+$\alpha=\frac{1}{2}$ und $\lambda=\frac{1}{2}$.
+\end{tabular}
+} 
+}
+%$\displaystyle\frac{1}{
+% 2^{\frac{n}{2}}\Gamma(\frac{n}{2})}y^{\frac{n}{2}-1}e^{-\frac{1}{2}y}$ 
+%& 
+%zu kompliziert 
+&
+$n$ 
+&
+$2n$
+\\\addlinespace[0.25em]\hline\addlinespace[0.25em]
+\begin{tabular}{c}
+Student-$t$-Verteilung\\
+mit $n$ Freiheitsgraden\\
+$X\sim t_n$
+\end{tabular} &
+\begin{tabular}{p{\beschrXstetL}}
+Sind $Y$ und $Z$ unabhängig mit $Y\sim\cN(0,1)$ und $Z\sim\chi^2_n$, so ist
+\\
+\multicolumn{1}{c}{
+$\displaystyle X:=\frac{Y}{\sqrt{\frac{1}{n}Z}} \sim t_n.$
+}
+\end{tabular}
+&
+$\R$ 
+&
+\multicolumn{2}{l}{
+\boxed{
+\begin{tabular}{p{9cm}}
+Für $n=1$ ist das eine Cauchy-Verteilung, und für $n\to\infty$ erhält man eine
+$\cN(0,1)$-Verteilung. Ist wie die Normalverteilung glockenförmig und
+symmetrisch um $0$, aber langschwänziger, und zwar umso mehr, je kleiner $n$
+ist.
+\end{tabular}}
+}
+%$\frac{\Gamma(\frac{n+1}{2})}{\sqrt{n\pi}\Gamma(\frac{n}{2})}
+%\left(1+\frac{t^2}{n}\right)^{-\frac{n+1}{2}}$ 
+%&
+%zu kompliziert
+&
+$0$ für $n>1$
+&
+$\displaystyle \frac{n}{n-2}$ für $n>2$
+\\\addlinespace[0.25em]\bottomrule\addlinespace[0.25em]
+\end{tabular}
+}
+
+\end{landscape}
+
+\newpage
+
+\section{Standard-Tests \small (für (approximativ) normalverteilte ZV)}
+
+\sep
+
+\subsection{Einstichproben-Tests}
+
+\begin{tabular}{lcc}
+\toprule\addlinespace[0.5em]
+&
+\multicolumn{1}{c}{\textbf{$z$-Test}}
+&
+\multicolumn{1}{c}{\textbf{$t$-Test}}
+\\\addlinespace[0.25em]
+\textbf{Beschrieb:} 
+& 
+\begin{tabular}{p{7cm}}
+Normalverteilung, Test für Erwartungswert bei \emph{bekannter} Varianz
+\end{tabular}
+&
+\begin{tabular}{p{7cm}}
+Normalverteilung, Test für Erwartungswert bei \emph{unbekannter} Varianz
+\end{tabular}
+\\\addlinespace[0.5em]\toprule\addlinespace[0.5em]
+\textbf{Stichprobe:}
+&
+$X_1,\ldots,X_n\riid\cN(\vartheta,\sigma^2)$ unter $P_\vartheta$
+&
+$X_1,\ldots,X_n\riid\cN(\mu,\sigma^2)$ unter $P_{\vec{\vartheta}}$
+\\\addlinespace[0.5em]\hline\addlinespace[0.5em]
+\textbf{Bekannt:} 
+& 
+$\sigma^2$ (Varianz)
+&
+(nichts)
+\\\addlinespace[0.5em]\hline\addlinespace[0.5em]
+\textbf{Unbekannt $\vartheta$:}
+& 
+$\vartheta=\mu$
+&
+$\vec{\vartheta}=(\mu,\sigma^2)$
+\\\addlinespace[0.5em]\hline\addlinespace[0.5em]
+\textbf{Hypothese $H_0$:}
+&
+\begin{tabular}{l}
+$\vartheta = \vartheta_0$ (einfach)
+\\\addlinespace[0.5em]
+$\Theta_0=\set{\vartheta_0}$
+\end{tabular}
+&
+\begin{tabular}{l}
+$\mu=\mu_0$ (zusammengesetzt)
+\\\addlinespace[0.5em]
+$\Theta_0=\set{\mu_0}\times (0,\infty)$\\
+\quad\ \ $=\dset{\vec{\vartheta}=(\mu,\sigma^2)}{\mu=\mu_0}$
+\end{tabular}
+\\\addlinespace[0.5em]\hline\addlinespace[0.5em]
+\textbf{Alternative $H_A$:}
+&
+\begin{tabular}{ccc}
+1) $\vartheta>\vartheta_0$
+&
+2) $\vartheta<\vartheta_0$
+&
+3) $\vartheta\neq\vartheta_0$
+\end{tabular}
+&
+\begin{tabular}{ccc}
+1) $\mu>\mu_0$
+&
+2) $\mu<\mu$
+&
+3) $\mu\neq\mu_0$
+\end{tabular}
+\\\addlinespace[0.5em]\hline\addlinespace[0.5em]
+\textbf{Teststatistik $T$:}
+&
+$\displaystyle
+T=\frac{\overline{X}_n-\vartheta_0}{\sigma/\sqrt{n}}\sim\cN(0,1)$ unter
+$P_{\vartheta_0}$
+&
+\begin{tabular}{p{5cm}}
+\multicolumn{1}{c}{
+$\displaystyle T=\frac{\overline{X}_n-\mu_0}{S/\sqrt{n}}\sim 
+t_{n-1}$ unter $P_{\vec{\vartheta}_0}$}
+\\\addlinespace[0.5em]
+\multicolumn{1}{c}{
+$\displaystyle
+S^2=\frac{1}{n-1}\sum_{i=1}^{n} (X_i-\overline{X}_n)^2$
+}
+\end{tabular}
+\\\addlinespace[0.5em]\hline\addlinespace[0.5em]
+\textbf{Krit. Bereich $K$:}
+&
+\multicolumn{2}{c}{1) $[c_>,\infty)$
+\qquad\qquad
+2) $(-\infty, c_<]$
+\qquad\qquad
+3) $(-\infty,-c_{\neq}]\cup [c_{\neq},\infty)$}
+\\\addlinespace[0.5em]\hline\addlinespace[0.5em]
+\textbf{Krit. Wert $c$:}
+&
+\multicolumn{1}{l}{
+\begin{tabular}{l}
+1) $c_>=\Phi^{-1}(1-\alpha)=z_{1-\alpha}$
+\\\addlinespace[0.5em]
+2) $c_<=-\Phi^{-1}(1-\alpha)=-z_{1-\alpha}$
+\\\addlinespace[0.5em]
+3) $c_{\neq}=\Phi^{-1}(1-\frac{\alpha}{2})=z_{1-\frac{\alpha}{2}}$
+\\\addlinespace[0.5em]
+($z_{1-\alpha}=(1-\alpha)$-Quantil der $\cN(0,1)$-Vert.)
+\end{tabular}}
+&
+\multicolumn{1}{l}{
+\begin{tabular}{l}
+1) $c_>=t_{n-1,1-\alpha}$
+\\\addlinespace[0.5em]
+2) $c_<=t_{n-1,\alpha}=-t_{n-1,1-\alpha}$
+\\\addlinespace[0.5em]
+3) $c_{\neq}=t_{n-1,1-\frac{\alpha}{2}}$   
+\\\addlinespace[0.5em]
+($t_{m,\gamma}=\gamma$-Quantil der $t_{m}$-Vert.)
+\end{tabular}}
+\\\addlinespace[0.5em]\hline\addlinespace[0.5em]
+\begin{tabular}{l}
+\textbf{Verwerfe $H_0$}
+\\\addlinespace[0.25em]
+\textbf{falls:}
+\end{tabular}
+&
+\multicolumn{1}{l}{
+\begin{tabular}{lll}
+1) &$\displaystyle\overline{X}_n > c_>\frac{\sigma}{\sqrt{n}} +
+\vartheta_0$, & $T>z_{1-\alpha}$
+\\\addlinespace[0.5em]
+2) &$\displaystyle\overline{X}_n < c_<\frac{\sigma}{\sqrt{n}} +
+\vartheta_0$, & $T<-z_{1-\alpha}$
+\\\addlinespace[0.5em]
+3) &$\displaystyle 
+\abs{\frac{\overline{X}_n-\vartheta_0}{\sigma/\sqrt{n}}}>c_{\neq}$, 
+& $\abs{T}>z_{1-\frac{\alpha}{2}}$
+\end{tabular}}
+&
+\multicolumn{1}{l}{
+\begin{tabular}{lll}
+1) & $\displaystyle\overline{X}_n > c_>\frac{S}{\sqrt{n}} +
+\vartheta_0$, & $T>t_{n-1}{1-\alpha}$
+\\\addlinespace[0.5em]
+2) & $\displaystyle\overline{X}_n < c_<\frac{S}{\sqrt{n}} +
+\vartheta_0$, & $T<-t_{n-1}{1-\alpha}$
+\\\addlinespace[0.5em]
+3) & $\displaystyle 
+\abs{\frac{\overline{X}_n-\vartheta_0}{S/\sqrt{n}}}>c_{\neq}$,
+& $\abs{T}>t_{n-1,1-\frac{\alpha}{2}}$
+\end{tabular}}
+\\\addlinespace[0.5em]\bottomrule
+\end{tabular}
+\begin{multicols*}{2}
+\raggedcolumns
+
+$\text{unabh.} 
+\  \stackrel{\neq}{\Longrightarrow} \ 
+\text{paarw. unabh.}
+\  \Longrightarrow \ 
+\text{paarw. unkorr.}
+$
+
+Unabhängigkeit von ZV bleibt bei Transf. erhalten!
+
+\sep
+
+$
+Y=g(X)\Longrightarrow \Exp{Y}=\Exp{g(X)}=\int_{-\infty}^\infty g(x)f_X(x)\ dx
+$
+(Absolute Konvergenz nötig)
+
+$
+Y=\sum_{\ell=1}^m X_\ell\Longrightarrow
+\Exp{Y} = a + \sum_{\ell=1}^{m}b_\ell\Exp{X_\ell}.
+$
+
+$\forall\omega\in\Omega: X(\omega)\leq Y(\omega)\Longrightarrow \Exp{X}\leq
+\Exp{Y}$
+
+$\cW(X)=\N_0\Rightarrow \Exp{X} = \sum_{j=1}^{\infty} \Prob{X\geq j} = \sum_{\ell=0}^{\infty} P[X >
+\ell].$
+
+$
+X_i,\ldots,X_n\text{ unabh. }\Rightarrow
+\Exp{\prod_{i=1}^n X_i} = \prod_{i=1}^n \Exp{X_i}
+$
+
+\sep
+
+$\Exp{\Exp{X}}=\Exp{X}$\\
+$\Exp{\Exp{X}\Exp{X}}=(\Exp{X})^2$\\
+$\Exp{\Exp{X} X}=\Exp{X}\Exp{X}=(\Exp{X})^2$\\
+\Com EW ist innerhalb von EW eine Konstante.
+
+\sep
+
+$\Exp{X^2}<\infty\Rightarrow\Var{X}:=\Exp{(X-\Exp{X})^2}$ (definiert)
+
+(mit $g(X)=(X-\Exp{X})^2$, mittlere q. Abw. von EW)
+
+$\Exp{X^2}<\infty\Rightarrow\Rightarrow \Var{X}=\Exp{X^2}-(\Exp{X})^2$
+
+$\Exp{X^2}<\infty\Rightarrow\Rightarrow\Var{aX+b}=a^2\Var{X}$
+
+$
+\Var{\sum_{i=1}^n X_i} = 
+\sum_{i=1}^n \Var{X_i} + 2\sum_{i<j} \Cov{X_i,X_j}
+$\\
+$\Var{X_1+X_2} = \Var{X_1} + \Var{X_2} + 2\Cov{X_1,X_2}.$\\
+$
+X_i,X_j\text{ p.w. unkorr.}\Rightarrow
+\Var{\sum_{i=1}^n X_i} = \sum_{i=1}^n\Var{X_i}
+$
+
+\sep
+
+$\Cov{X,Y}=\Exp{XY}-\Exp{X}\Exp{Y}$ oder\\
+$\Cov{X,Y}=\Exp{(X_1-\Exp{X_1})(X_2-\Exp{X_2})}$\\
+$X,Y \text{ unabh.}\Longrightarrow \Cov{X,Y}=0$\\
+$X,Y \text{ unabh.}\Longrightarrow \Exp{XY}=\Exp{X}\Exp{Y}$\\
+$\Cov{X,Y}=\Cov{Y,X}$\\
+$\Cov{X,X}=\Var{X}$,\\
+$\Cov{X,Y+Z}=\Cov{X,Y}+\Cov{X,Z}$\\
+$\Cov{X,a}=0 \text{ für }a\in\R$\\
+$\Cov{c+aX,d+bY}=ab\Cov{X,Y}$
+
+\end{multicols*}
+
+\subsection{Zweistichproben-Tests}
+
+\begin{tabular}{Hcc}
+\toprule\addlinespace[0.5em]
+&
+\textbf{Gepaart $(m=n)$}
+&
+\textbf{Ungepaart $(m\neq n\lor m=n)$}
+\\\addlinespace[0.25em]
+\textbf{Beschrieb} 
+&
+\begin{tabular}{p{7cm}}
+Normalverteilung, Test für Erwartungswert bei unbekannter Varianz
+\end{tabular}
+&
+\begin{tabular}{p{7cm}}
+Normalverteilung, Test für Erwartungswert bei unbekannter Varianz
+\end{tabular}
+\\\addlinespace[0.5em]\toprule\addlinespace[0.5em]
+\textbf{Stichprobe}
+&
+\multicolumn{2}{c}{
+\begin{tabular}{c}
+$X_1,\ldots,X_n\riid\cN(\mu_X,\sigma^2)$ unter $P_\vartheta$ (oder
+$P_{\vec{\vartheta}}$) \\\addlinespace[0.5em]
+$Y_1,\ldots,Y_m\riid\cN(\mu_Y,\sigma^2)$ unter $P_\vartheta$ (oder
+$P_{\vec{\vartheta}}$)
+\\\addlinespace[0.5em]
+$X_1,\ldots,X_n$, $Y_1,\ldots,Y_m$ sind unabh. unter $P_\vartheta$ (oder
+$P_{\vec{\vartheta}}$)
+\\\addlinespace[0.5em]
+Varianz $\sigma^2$ ist in beiden Stichproben dieselbe
+\end{tabular}
+}
+\\\addlinespace[0.5em]\hline\addlinespace[0.5em]
+\textbf{Vorgehen}
+&
+\begin{tabular}{p{9.25cm}}
+Man bildet paarweise Differenzen:
+\\\addlinespace[0.5em]
+\multicolumn{1}{c}{
+$\displaystyle Z_i:=X_i-Y_i\riid\cN(\mu_X-\mu_Y,2\sigma^2)$
+}
+\\\addlinespace[0.5em]
+\begin{enumerate}[label=\alph*)]
+  \item \emph{$\sigma^2$ bekannt}: \textbf{$z$-Test}
+  \[
+  T =
+  \frac{\overbrace{(\overline{X}_n-\overline{Y}_n)}^{\overline{Z}_n}
+  -\overbrace{(\mu_X-\mu_Y)}^{\mu_{\vartheta_0}}}{
+  \sigma\sqrt{\frac{2}{n}}
+  }\sim\cN(0,1)
+  \]
+  unter jedem $P_\vartheta$.
+  \item \emph{$\sigma^2$ unbekannt}: \textbf{$t$-Test}
+  \[
+  T =
+  \frac{(\overline{X}_n-\overline{Y}_n)
+  -(\mu_X-\mu_Y)}{
+  S\sqrt{\frac{2}{n}}
+  }\sim t_{\color{red}{n}}
+  \]
+  unter jedem $P_{\vec{\vartheta}}$, wobei\newline
+  \[
+  \color{red}{
+  S^2 = \frac{1}{2}(S_X^2 + S_Y^2) = \frac{1}{2}S_Z^2.
+  }
+  \]
+  $S_X^2=\frac{1}{n-1}\sum_{i=1}^n (X_i-\overline{X}_n)^2$ \quad ($S_Y$, $S_Z$
+  analog)
+\end{enumerate}
+\end{tabular}
+&
+\begin{tabular}{p{9.25cm}}
+Man kann nicht mehr paarweise Differenzen bilden, auch wenn zufällig $m=n$ ist.
+\\
+\begin{enumerate}[label=\alph*)]
+  \item $\sigma^2$ \emph{bekannt}: \textbf{$z$-Test}
+\[
+T=\frac{(\overline{X}_n-\overline{Y}_m)-(\mu_X-\mu_Y)}{
+\sigma\sqrt{\frac{1}{n}+\frac{1}{m}}}
+\sim \cN(0,1)
+\]
+unter jedem $P_\vartheta$.
+\item \emph{$\sigma^2$ unbekannt}: \textbf{$t$-Test}
+\[
+T=\frac{(\overline{X}_n - \overline{Y}_m)-(\mu_X-\mu_Y)}{
+S\sqrt{\frac{1}{n}+\frac{1}{m}}
+}\sim t_{n+m-2}
+\]
+unter jedem $P_{\vec{\vartheta}}$, wobei ($S$=Schätzer für $\sigma^2$)\newline
+\begin{tabular}{l}
+\addlinespace[0.5em]
+$S_X^2=\frac{1}{n-1}\sum_{i=1}^n (X_i-\overline{X}_n)^2$
+\\\addlinespace[0.5em]
+$S_Y^2=\frac{1}{m-1}\sum_{i=1}^m (Y_i-\overline{Y}_m)^2$
+\\\addlinespace[1em]
+$
+S^2=\frac{1}{m+n-2}\left((n-1)S_X^2 + (m-1)S_Y^2\right).
+$
+\end{tabular}
+\end{enumerate}
+\end{tabular}
+\\\bottomrule
+\end{tabular}
+\begin{multicols*}{2}
+
+\raggedcolumns
+
+Hier sieht man auch die vielen Möglichkeiten $f_X(x)$ zu berechnen:
+\begin{align*}
+f_X(x) &= \frac{d}{dx} F_X(x) = \frac{d}{dx}\lim_{y\to\infty} F(x,y)
+\\
+&=\frac{d}{dx}\lim_{y\to\infty}\overbrace{\left(\int_{-\infty}^x\int_{-\infty}^y
+f(u,v) \ dv \ du\right)}^{=F(x,y)} 
+\\
+&=\frac{d}{dx}\left(\int_{-\infty}^x\int_{-\infty}^\infty f(u,v)
+\ dv \ du\right)
+=\int_{-\infty}^\infty f(x,v) \ dv.
+\end{align*}
+
+\sep
+
+\Thm[Additionsregel]
+  \[
+  P[A\cup B] = P[A] + P[B] - P[A\cap B]
+  \]
+
+\sep
+
+\Lem Für beliebige $A\subseteq\Omega$ ist dann in einem Laplace-Raum:
+\begin{gather*}
+P[A]=\frac{\text{Anz. Elementarereignisse in }A}{\text{Anz. Elementarereignisse
+in
+}\Omega}=\frac{\card{A}}{\card{\Omega}}
+=\frac{\text{``günstige''}}{\text{``mögliche''}}
+\end{gather*}
+
+\Com Abzählen: Kombinatorik
+
+\sep
+
+\Thm[Formel von Bayes] Ist $A_1,\ldots,A_n$ eine Zerlegung von $\Omega$ mit
+$P[A_i]>0$ für $i=1,\ldots,n$ und $B$ ein Ereignis mit $P[B]>0$, so gilt für
+jedes $k$
+\[
+\cProb{A_k}{B} \stackrel{\text{Def}}{=}
+\frac{\Prob{A_k\cap B}}{\Prob{B}} 
+=
+\frac{\overbrace{\cProb{B}{A_k}\Prob{A_k}}^{\mathclap{=\Prob{A_k\cap
+B}\text{
+(Mult. Regel)}}}}{\underbrace{\sum_{i=1}^{n}
+\cProb{B}{A_i}\Prob{A_i}}_{\mathclap{=\Prob{B}\text{
+(Satz. d. tot. Whs.)}}}}.
+\]
+
+\sep
+
+\Def[(Stoch.) Unabh. \emph{Ereignisse}]
+\begin{gather*}
+P[A\cap B] = P[A]P[B]. \quad\text{bzw.}\quad P\left[\bigcap_{i=1}^{m}
+A_{k_i}\right] =
+\prod_{i=1}^{m} P[A_{k_i}].
+\end{gather*}
+Ist $P[A]=0$ oder $P[B]=0$, so sind $A$ und $B$ immer unabhängig. Für $P[A]\neq
+0$ gilt
+\[
+A,B\text{ unabhängig } \Longleftrightarrow P[B|A] = P[B].
+\]
+
+\begin{comment}
+\newpage
+
+\part{Leftovers}
+
+\section{Wahrscheinlichkeiten}
+
+\Def[$\sigma$-Algebra] ist ein Mengensystem $\cF\subseteq \cP(\Omega)$,
+wenn folgende Punkte erfüllt sind
+\begin{enumerate}[label=\roman*)]
+  \item $\Omega\in\cF$,
+  \item für jedes $A \in \cF$ gilt: $A^c\in\cF$,
+  \item für jede Folge $(A_n)_{n\in\N}$ mit $A_n\in\cF$ für alle $n\in\N$ ist
+  auch die Vereinigung $\bigcup_{n=1}^\infty A_n\in \cF$.
+\end{enumerate}
+
+\sep
+
+\Def[Wahrscheinlichkeitsmass] ist eine Abbildung $P\colon\cF\to [0,1]$,
+welche die nachfolgenden Axiome erfüllt. Für $A\in\cF$ nennen wir $P[A]\in[0,1]$
+die \emph{Wahrscheinlichkeit} (kurs WS), dass $A$ eintritt. Die geforderten
+Grundregeln (Axiome) sind:
+
+\begin{enumerate}[label=A\arabic*),leftmargin=22pt]
+  \item $P[A]\geq 0$ für alle Ereignisse $A\in\cF$.
+  \item $P[\Omega]=1.$
+  \item $P\left[\bigcup_{i=1}^\infty A_i\right]=\sum_{i=1}^\infty
+  P[A_i]$, sofern die $A_i\in\cF$ \emph{paarweise disjunkt} sind, d.h. falls gilt
+  $A_i\cap A_j = \emptyset$ für $i\neq j$. \
+  \txtcom{genannt: $\sigma$-Additivität}
+\end{enumerate}
+
+\Com Auch $A1)$ und $A2)$ benutzen, dass $\cF$ eine $\sigma$-Algebra ist, weil
+ja die Argumente von $P$ Mengen aus $\cF$ sein müssen.
+
+\section{Diskrete Zufallsvariablen und Verteilungen}
+
+\subsection{Grundbegriffe}
+
+\Def[diskrete Zufallsvariable] Funktion
+$X\colon\Omega\to\R$. Mit $\Omega$ ist natürlich auch der Wertebereich
+$\cW(X)=\{x_1,x_2,\ldots\}$ von $X$ endlich oder abzählbar.
+
+\Com Zufallsvariable $X$ partitioniert $\Omega$ in Äquivalenzklassen. Alle
+$x_k\in\cW(X)$ sind repräsentanten für eine Äquivalenzklassen in $\Omega$ (dem
+Urbild von $x_k$, das für alle $x_k$ verschieden sein muss, weil $X$ eine
+Funktion ist.) \todo{wirklich verschieden?}
+
+\sep
+ 
+\Cor[Gedächtnislosigkeit von Exponentialvert.]
+
+\begin{gather*}
+\begin{align*}
+\cProb{X>t+s}{X>s}
+&=\frac{\Prob{X>t+s,X>s}}{\Prob{X>s}}
+=\frac{\Prob{X>t+s}}{\Prob{X>s}}
+\\
+&=\frac{1-\Prob{X\leq t+s}}{1-\Prob{X\leq s}}
+=\frac{1-F_X(t+s)}{1-F_X(s)}
+\\
+&=\frac{1-(1-e^{-\lambda(t+s)})}{1-(1-e^{\lambda s})}
+=\frac{e^{-\lambda(t+s)}}{e^{\lambda s}}=e^{-\lambda t}
+\\
+&=1-F_X(t)=\Prob{X>t}.
+\end{align*}
+\end{gather*}
+
+\sep
+
+\todo{Kurzbeispiel: Monte-Carlo-Integration (siehe ZF Fabian Hahn)}
+\end{comment}
+
+\end{multicols*}
+\end{document}
